@@ -33,23 +33,23 @@ export type ExperimentDocument = {
 
 export const DEFAULT_EXPERIMENT: Experiment = {
   bpm: 120,
-  seed: 'ZIG-001',
+  seed: 'PINK-001',
   riff: [
-    { pitch: 40, length: 1, accent: true },
+    { pitch: 40, length: 0.5, accent: true },
+    { pitch: 41, length: 0.5, accent: false },
     { pitch: null, length: 0.5, accent: false },
-    { pitch: 43, length: 1, accent: false },
     { pitch: 47, length: 1.5, accent: true },
-    { pitch: 45, length: 0.5, accent: false },
-    { pitch: 38, length: 1, accent: true },
-    { pitch: 50, length: 1, accent: false },
+    { pitch: 46, length: 0.5, accent: false },
+    { pitch: 40, length: 1, accent: true },
+    { pitch: 53, length: 0.5, accent: false },
     { pitch: null, length: 1, accent: false },
   ],
   drums: Array.from({ length: 16 }, (_, index) => ({
-    kick: [0, 6, 10].includes(index),
-    snare: [4, 12].includes(index),
-    hat: [2, 6, 8, 11, 14].includes(index),
+    kick: [0, 5, 10, 14].includes(index),
+    snare: [4, 11].includes(index),
+    hat: [1, 3, 6, 8, 11, 13, 15].includes(index),
   })),
-  tone: { distortion: 42, filter: 3200 },
+  tone: { distortion: 78, filter: 2400 },
   createdAt: new Date().toISOString(),
 };
 

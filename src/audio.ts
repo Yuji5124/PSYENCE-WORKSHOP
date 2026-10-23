@@ -13,7 +13,24 @@ function makeNoiseBuffer(context: BaseAudioContext, seed: string): AudioBuffer {
   const buffer = context.createBuffer(1, Math.ceil(context.sampleRate * 0.3), context.sampleRate);
   const data = buffer.getChannelData(0);
   const random = seededRandom(`${seed}|drum-noise`);
-  for (let index = 0; index < data.length; index += 1) data[index] = random() * 2 - 1;
+  let b0 = 0;
+  let b1 = 0;
+  let b2 = 0;
+  let b3 = 0;
+  let b4 = 0;
+  let b5 = 0;
+  let b6 = 0;
+  for (let index = 0; index < data.length; index += 1) {
+    const white = random() * 2 - 1;
+    b0 = 0.99886 * b0 + white * 0.0555179;
+    b1 = 0.99332 * b1 + white * 0.0750759;
+    b2 = 0.969 * b2 + white * 0.153852;
+    b3 = 0.8665 * b3 + white * 0.3104856;
+    b4 = 0.55 * b4 + white * 0.5329522;
+    b5 = -0.7616 * b5 - white * 0.016898;
+    data[index] = (b0 + b1 + b2 + b3 + b4 + b5 + b6 + white * 0.5362) * 0.11;
+    b6 = white * 0.115926;
+  }
   return buffer;
 }
 
@@ -24,7 +41,7 @@ function distortionCurve(amount: number): Float32Array<ArrayBuffer> {
   if (cached) return cached;
   const samples = 44_100;
   const curve = new Float32Array(samples);
-  const k = amount * 3.2;
+  const k = amount * 12;
   const normalization = k ? Math.tanh(1 + k) : 1;
   for (let index = 0; index < samples; index += 1) {
     const x = (index * 2) / (samples - 1) - 1;
@@ -53,7 +70,7 @@ function makeGraph(context: BaseAudioContext, analyser?: AnalyserNode) {
   return master;
 }
 
-function scheduleGuitar(context: BaseAudioContext, master: AudioNode, time: number, pitch: number, gateSeconds: number, accent: boolean, tone: Experiment['tone']) {
+function scheduleGuitar(context: BaseAudioContext, master: AudioNode, noise: AudioBuffer, time: number, pitch: number, gateSeconds: number, accent: boolean, tone: Experiment['tone'], seed: string, riffIndex: number) {
   const frequency = 440 * 2 ** ((pitch - 69) / 12);
   const end = time + Math.max(0.09, gateSeconds);
   const envelope = context.createGain();
@@ -71,6 +88,21 @@ function scheduleGuitar(context: BaseAudioContext, master: AudioNode, time: numb
   shaper.connect(filter);
   filter.connect(envelope);
   envelope.connect(master);
+
+  const pickNoise = context.createBufferSource();
+  pickNoise.buffer = noise;
+  const noiseFilter = context.createBiquadFilter();
+  noiseFilter.type = 'highpass';
+  noiseFilter.frequency.setValueAtTime(720, time);
+  const noiseEnvelope = context.createGain();
+  noiseEnvelope.gain.setValueAtTime(accent ? 0.19 : 0.13, time);
+  noiseEnvelope.gain.exponentialRampToValueAtTime(0.0001, time + 0.095);
+  pickNoise.connect(noiseFilter);
+  noiseFilter.connect(noiseEnvelope);
+  noiseEnvelope.connect(shaper);
+  const noiseOffset = seededRandom(`${seed}|pick|${riffIndex}`)() * 0.1;
+  pickNoise.start(time, noiseOffset);
+  pickNoise.stop(time + 0.1);
 
   for (const [type, cents, level] of [['sawtooth', -4, 0.65], ['square', 4, 0.2]] as const) {
     const oscillator = context.createOscillator();
@@ -139,7 +171,7 @@ function scheduleStep(context: BaseAudioContext, master: AudioNode, noise: Audio
   if (drum.hat) scheduleNoise(context, master, noise, time, 'hat');
   if (step % 2 === 0) {
     const riff = experiment.riff[step / 2];
-    if (riff.pitch !== null) scheduleGuitar(context, master, time, riff.pitch, (60 / experiment.bpm / 2) * riff.length * 0.92, riff.accent, experiment.tone);
+    if (riff.pitch !== null) scheduleGuitar(context, master, noise, time, riff.pitch, (60 / experiment.bpm / 2) * riff.length * 0.92, riff.accent, experiment.tone, experiment.seed, step / 2);
   }
 }
 
