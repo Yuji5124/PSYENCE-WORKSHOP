@@ -1,4 +1,7 @@
 import { seededRandom, type Experiment } from './model';
+import { GuitarSampleBank } from './guitar-samples';
+
+const guitarSamples = new GuitarSampleBank();
 
 type AudioContextCtor = typeof AudioContext & { new (...args: ConstructorParameters<typeof AudioContext>): AudioContext };
 
@@ -164,14 +167,20 @@ function scheduleNoise(context: BaseAudioContext, master: AudioNode, noiseBuffer
   }
 }
 
-function scheduleStep(context: BaseAudioContext, master: AudioNode, noise: AudioBuffer, experiment: Experiment, step: number, time: number) {
+function scheduleStep(context: BaseAudioContext, master: AudioNode, noise: AudioBuffer, experiment: Experiment, step: number, time: number, bar = 0) {
   const drum = experiment.drums[step];
   if (drum.kick) scheduleKick(context, master, time);
   if (drum.snare) scheduleNoise(context, master, noise, time, 'snare');
   if (drum.hat) scheduleNoise(context, master, noise, time, 'hat');
   if (step % 2 === 0) {
     const riff = experiment.riff[step / 2];
-    if (riff.pitch !== null) scheduleGuitar(context, master, noise, time, riff.pitch, (60 / experiment.bpm / 2) * riff.length * 0.92, riff.accent, experiment.tone, experiment.seed, step / 2);
+    if (riff.pitch !== null) {
+      const gate = (60 / experiment.bpm / 2) * riff.length * 0.92;
+      if (experiment.guitar.engine === 'samples') {
+        void guitarSamples.play(context, master, riff.pitch, riff.accent, gate, experiment.seed, bar * 8 + step / 2, experiment.guitar.drive, experiment.guitar.tone, experiment.guitar.space, time, riff.palmMute)
+          .catch(() => scheduleGuitar(context, master, noise, time, riff.pitch!, gate, riff.accent, { distortion: experiment.guitar.drive, filter: 400 + experiment.guitar.tone * 7_600 }, experiment.seed, step / 2));
+      } else scheduleGuitar(context, master, noise, time, riff.pitch, gate, riff.accent, { distortion: experiment.guitar.drive, filter: 400 + experiment.guitar.tone * 7_600 }, experiment.seed, step / 2);
+    }
   }
 }
 
@@ -185,6 +194,7 @@ export class LiveAudioEngine {
   private interval: number | null = null;
   private nextTime = 0;
   private step = 0;
+  private loopCount = 0;
   private onStep: ((step: number, time: number) => void) | null = null;
 
   get visualizationNode(): AnalyserNode | null {
@@ -201,10 +211,12 @@ export class LiveAudioEngine {
     this.analyser.fftSize = 2048;
     this.master = makeGraph(context, this.analyser);
     this.playback = structuredClone(experiment);
+    if (experiment.guitar.engine === 'samples') await guitarSamples.prepare(context, experiment.riff.filter((note): note is typeof note & { pitch: number } => note.pitch !== null).map((note) => ({ pitch: note.pitch, accent: note.accent })), experiment.seed);
     this.pending = null;
     this.noise = makeNoiseBuffer(context, experiment.seed);
     this.onStep = onStep;
     this.step = 0;
+    this.loopCount = 0;
     this.nextTime = context.currentTime + 0.12;
     this.interval = window.setInterval(() => this.scheduleAhead(), 25);
   }
@@ -212,6 +224,7 @@ export class LiveAudioEngine {
   update(experiment: Experiment): void {
     if (!this.context || !this.playback || this.context.state === 'closed') return;
     this.pending = structuredClone(experiment);
+    if (experiment.guitar.engine === 'samples') void guitarSamples.prepare(this.context, experiment.riff.filter((note): note is typeof note & { pitch: number } => note.pitch !== null).map((note) => ({ pitch: note.pitch, accent: note.accent })), experiment.seed);
   }
 
   async stop(): Promise<void> {
@@ -237,13 +250,14 @@ export class LiveAudioEngine {
         this.pending = null;
         this.noise = makeNoiseBuffer(this.context, this.playback.seed);
       }
-      scheduleStep(this.context, this.master, this.noise, this.playback, this.step, this.nextTime);
+      scheduleStep(this.context, this.master, this.noise, this.playback, this.step, this.nextTime, this.loopCount);
       const step = this.step;
       const scheduledAt = this.nextTime;
       const delay = Math.max(0, (scheduledAt - this.context.currentTime) * 1000);
       window.setTimeout(() => this.onStep?.(step, scheduledAt), delay);
       this.nextTime += 60 / this.playback.bpm / 4;
       this.step = (this.step + 1) % 16;
+      if (this.step === 0) this.loopCount += 1;
     }
   }
 }
@@ -254,10 +268,11 @@ export async function renderWav(experiment: Experiment): Promise<Blob> {
   const context = new OfflineAudioContext(2, Math.ceil(duration * 44_100), 44_100);
   const master = makeGraph(context);
   const noise = makeNoiseBuffer(context, experiment.seed);
+  if (experiment.guitar.engine === 'samples') await guitarSamples.prepare(context, experiment.riff.filter((note): note is typeof note & { pitch: number } => note.pitch !== null).map((note) => ({ pitch: note.pitch, accent: note.accent })), experiment.seed);
   const sixteenth = 60 / experiment.bpm / 4;
   for (let bar = 0; bar < 4; bar += 1) {
     for (let step = 0; step < 16; step += 1) {
-      scheduleStep(context, master, noise, experiment, step, bar * barSeconds + step * sixteenth + 0.01);
+      scheduleStep(context, master, noise, experiment, step, bar * barSeconds + step * sixteenth + 0.01, bar);
     }
   }
   const rendered = await context.startRendering();

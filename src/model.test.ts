@@ -18,6 +18,17 @@ describe('experiment pattern', () => {
     expect(restored).toEqual(original);
   });
 
+  it('stores guitar engine settings and migrates Phase 0 version 1 documents', () => {
+    const current = cloneExperiment(DEFAULT_EXPERIMENT);
+    current.guitar = { engine: 'samples', preset: 'ZIG STRANGE', drive: 27, tone: 0.46, space: 0.35 };
+    current.riff[0].palmMute = true;
+    expect(fromDocument(toDocument(current))).toEqual(current);
+    const legacy = toDocument(current);
+    legacy.version = 1;
+    delete legacy.guitar;
+    expect(fromDocument(legacy).guitar.engine).toBe('synth');
+  });
+
   it('rejects documents with an incomplete step array', () => {
     const doc = toDocument(DEFAULT_EXPERIMENT);
     doc.steps.riff.pop();
