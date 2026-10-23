@@ -45,10 +45,16 @@ function distortionCurve(amount: number): Float32Array<ArrayBuffer> {
   const samples = 44_100;
   const curve = new Float32Array(samples);
   const k = amount * 6;
-  const normalization = k ? Math.tanh(1 + k) : 1;
   for (let index = 0; index < samples; index += 1) {
     const x = (index * 2) / (samples - 1) - 1;
-    curve[index] = k ? Math.tanh(x * (1 + k)) / normalization : x;
+    if (!k) {
+      curve[index] = x;
+      continue;
+    }
+    // Restrained asymmetric soft clipping with a clean transient blend gives
+    // the guitar a Blues Driver-like push without modeling the pedal circuit.
+    const driven = Math.tanh(x * (1 + k) + 0.12 * x * x);
+    curve[index] = x * 0.22 + driven * 0.78;
   }
   curveCache.set(key, curve);
   return curve;
@@ -85,10 +91,15 @@ function scheduleGuitar(context: BaseAudioContext, master: AudioNode, noise: Aud
   filter.type = 'lowpass';
   filter.frequency.setValueAtTime(tone.filter, time);
   filter.Q.value = 0.72;
+  const dcBlock = context.createBiquadFilter();
+  dcBlock.type = 'highpass';
+  dcBlock.frequency.setValueAtTime(75, time);
+  dcBlock.Q.value = 0.5;
   const shaper = context.createWaveShaper();
   shaper.curve = distortionCurve(tone.distortion / 100) as Float32Array<ArrayBuffer>;
   shaper.oversample = '4x';
-  shaper.connect(filter);
+  shaper.connect(dcBlock);
+  dcBlock.connect(filter);
   filter.connect(envelope);
   envelope.connect(master);
 

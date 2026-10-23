@@ -46,10 +46,16 @@ export class GuitarSampleBank {
     source.playbackRate.value = voice.rate;
     const filter = context.createBiquadFilter();
     filter.type = 'lowpass'; filter.frequency.value = palmMute ? 1_450 : 900 + tone * 7_100; filter.Q.value = 0.7;
+    const dcBlock = context.createBiquadFilter();
+    dcBlock.type = 'highpass'; dcBlock.frequency.value = 75; dcBlock.Q.value = 0.5;
     const shaper = context.createWaveShaper();
     const curve = new Float32Array(2048);
-    const amount = drive / 100 * 7;
-    for (let i = 0; i < curve.length; i++) { const x = i * 2 / (curve.length - 1) - 1; curve[i] = Math.tanh(x * (1 + amount)) / Math.tanh(1 + amount); }
+    const amount = drive / 100 * 6;
+    for (let i = 0; i < curve.length; i++) {
+      const x = i * 2 / (curve.length - 1) - 1;
+      const driven = Math.tanh(x * (1 + amount) + 0.12 * x * x);
+      curve[i] = amount === 0 ? x : x * 0.22 + driven * 0.78;
+    }
     shaper.curve = curve;
     const envelope = context.createGain();
     const start = Math.max(context.currentTime + 0.003, time);
@@ -58,7 +64,7 @@ export class GuitarSampleBank {
     envelope.gain.setValueAtTime(0.0001, start);
     envelope.gain.linearRampToValueAtTime(accent ? 0.56 : 0.38, start + 0.006);
     envelope.gain.setTargetAtTime(0.0001, end, release / 5);
-    source.connect(shaper); shaper.connect(filter); filter.connect(envelope); envelope.connect(destination);
+    source.connect(shaper); shaper.connect(dcBlock); dcBlock.connect(filter); filter.connect(envelope); envelope.connect(destination);
     source.start(start);
     source.stop(end + release);
     if (space > 0) {
