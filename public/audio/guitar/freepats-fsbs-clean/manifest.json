@@ -1,0 +1,290 @@
+{
+  "source": "FreePats Electric Guitar FSBS Clean bridge, 2026-08-07",
+  "license": "CC0-1.0",
+  "sample_rate": 44100,
+  "release_seconds": 1.1,
+  "roots": [
+    {
+      "midi": 36,
+      "velocity_layers": [
+        {
+          "velocity": 74,
+          "round_robins": [
+            "C2_s1_soft_01.ogg",
+            "C2_s1_soft_02.ogg",
+            "C2_s1_soft_03.ogg",
+            "C2_s1_soft_04.ogg"
+          ]
+        },
+        {
+          "velocity": 112,
+          "round_robins": [
+            "C2_s1_01.ogg",
+            "C2_s1_02.ogg",
+            "C2_s1_03.ogg",
+            "C2_s1_04.ogg"
+          ]
+        }
+      ]
+    },
+    {
+      "midi": 40,
+      "velocity_layers": [
+        {
+          "velocity": 74,
+          "round_robins": [
+            "E2_s1_soft_01.ogg",
+            "E2_s1_soft_02.ogg",
+            "E2_s1_soft_03.ogg",
+            "E2_s1_soft_04.ogg"
+          ]
+        },
+        {
+          "velocity": 112,
+          "round_robins": [
+            "E2_s1_01.ogg",
+            "E2_s1_02.ogg",
+            "E2_s1_03.ogg",
+            "E2_s1_04.ogg"
+          ]
+        }
+      ]
+    },
+    {
+      "midi": 41,
+      "velocity_layers": [
+        {
+          "velocity": 74,
+          "round_robins": [
+            "F2_s1_soft_01.ogg",
+            "F2_s1_soft_02.ogg",
+            "F2_s1_soft_03.ogg",
+            "F2_s1_soft_04.ogg"
+          ]
+        },
+        {
+          "velocity": 112,
+          "round_robins": [
+            "F2_s1_01.ogg",
+            "F2_s1_02.ogg",
+            "F2_s1_03.ogg",
+            "F2_s1_04.ogg"
+          ]
+        }
+      ]
+    },
+    {
+      "midi": 45,
+      "velocity_layers": [
+        {
+          "velocity": 74,
+          "round_robins": [
+            "A2_s2_soft_01.ogg",
+            "A2_s2_soft_02.ogg",
+            "A2_s2_soft_03.ogg",
+            "A2_s2_soft_04.ogg"
+          ]
+        },
+        {
+          "velocity": 112,
+          "round_robins": [
+            "A2_s2_01.ogg",
+            "A2_s2_02.ogg",
+            "A2_s2_03.ogg",
+            "A2_s2_04.ogg"
+          ]
+        }
+      ]
+    },
+    {
+      "midi": 48,
+      "velocity_layers": [
+        {
+          "velocity": 74,
+          "round_robins": [
+            "C3_s2_soft_01.ogg",
+            "C3_s2_soft_02.ogg",
+            "C3_s2_soft_03.ogg",
+            "C3_s2_soft_04.ogg"
+          ]
+        },
+        {
+          "velocity": 112,
+          "round_robins": [
+            "C3_s2_01.ogg",
+            "C3_s2_02.ogg",
+            "C3_s2_03.ogg",
+            "C3_s2_04.ogg"
+          ]
+        }
+      ]
+    },
+    {
+      "midi": 50,
+      "velocity_layers": [
+        {
+          "velocity": 74,
+          "round_robins": [
+            "D3_s3_soft_01.ogg",
+            "D3_s3_soft_02.ogg",
+            "D3_s3_soft_03.ogg",
+            "D3_s3_soft_04.ogg"
+          ]
+        },
+        {
+          "velocity": 112,
+          "round_robins": [
+            "D3_s3_01.ogg",
+            "D3_s3_02.ogg",
+            "D3_s3_03.ogg",
+            "D3_s3_04.ogg"
+          ]
+        }
+      ]
+    },
+    {
+      "midi": 52,
+      "velocity_layers": [
+        {
+          "velocity": 74,
+          "round_robins": [
+            "E3_s3_soft_01.ogg",
+            "E3_s3_soft_02.ogg",
+            "E3_s3_soft_03.ogg",
+            "E3_s3_soft_04.ogg"
+          ]
+        },
+        {
+          "velocity": 112,
+          "round_robins": [
+            "E3_s3_01.ogg",
+            "E3_s3_02.ogg",
+            "E3_s3_03.ogg",
+            "E3_s3_04.ogg"
+          ]
+        }
+      ]
+    },
+    {
+      "midi": 55,
+      "velocity_layers": [
+        {
+          "velocity": 74,
+          "round_robins": [
+            "G3_s4_soft_01.ogg",
+            "G3_s4_soft_02.ogg",
+            "G3_s4_soft_03.ogg",
+            "G3_s4_soft_04.ogg"
+          ]
+        },
+        {
+          "velocity": 112,
+          "round_robins": [
+            "G3_s4_01.ogg",
+            "G3_s4_02.ogg",
+            "G3_s4_03.ogg",
+            "G3_s4_04.ogg"
+          ]
+        }
+      ]
+    },
+    {
+      "midi": 59,
+      "velocity_layers": [
+        {
+          "velocity": 74,
+          "round_robins": [
+            "B3_s5_soft_01.ogg",
+            "B3_s5_soft_02.ogg",
+            "B3_s5_soft_03.ogg",
+            "B3_s5_soft_04.ogg"
+          ]
+        },
+        {
+          "velocity": 112,
+          "round_robins": [
+            "B3_s5_01.ogg",
+            "B3_s5_02.ogg",
+            "B3_s5_03.ogg",
+            "B3_s5_04.ogg"
+          ]
+        }
+      ]
+    },
+    {
+      "midi": 61,
+      "velocity_layers": [
+        {
+          "velocity": 74,
+          "round_robins": [
+            "C#4_s5_soft_01.ogg",
+            "C#4_s5_soft_02.ogg",
+            "C#4_s5_soft_03.ogg",
+            "C#4_s5_soft_04.ogg"
+          ]
+        },
+        {
+          "velocity": 112,
+          "round_robins": [
+            "C#4_s5_01.ogg",
+            "C#4_s5_02.ogg",
+            "C#4_s5_03.ogg",
+            "C#4_s5_04.ogg"
+          ]
+        }
+      ]
+    },
+    {
+      "midi": 64,
+      "velocity_layers": [
+        {
+          "velocity": 74,
+          "round_robins": [
+            "E4_s6_soft_01.ogg",
+            "E4_s6_soft_02.ogg",
+            "E4_s6_soft_03.ogg",
+            "E4_s6_soft_04.ogg"
+          ]
+        },
+        {
+          "velocity": 112,
+          "round_robins": [
+            "E4_s6_01.ogg",
+            "E4_s6_02.ogg",
+            "E4_s6_03.ogg",
+            "E4_s6_04.ogg"
+          ]
+        }
+      ]
+    },
+    {
+      "midi": 67,
+      "velocity_layers": [
+        {
+          "velocity": 112,
+          "round_robins": [
+            "G4_s6_01.ogg",
+            "G4_s6_02.ogg",
+            "G4_s6_03.ogg",
+            "G4_s6_04.ogg"
+          ]
+        }
+      ]
+    },
+    {
+      "midi": 71,
+      "velocity_layers": [
+        {
+          "velocity": 112,
+          "round_robins": [
+            "B4_s6_01.ogg",
+            "B4_s6_02.ogg",
+            "B4_s6_03.ogg",
+            "B4_s6_04.ogg"
+          ]
+        }
+      ]
+    }
+  ],
+  "trimmed_seconds": 4.0
+}

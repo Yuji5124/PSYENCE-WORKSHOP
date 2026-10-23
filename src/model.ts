@@ -31,7 +31,7 @@ export type ExperimentDocument = {
   tone: { distortion: number; filter: number };
   created_at: string;
   guitar?: Experiment['guitar'];
-  assets?: { guitar: { name: 'Karoryfer Emilyguitar'; license: 'CC0-1.0'; version: '1.001' } };
+  assets?: { guitar: { name: 'FreePats Electric Guitar FSBS Clean bridge'; license: 'CC0-1.0'; version: '2026-08-07' } };
   audio_engine?: 'web-audio-sampler/1';
   version: 1 | 2;
 };
@@ -55,7 +55,7 @@ export const DEFAULT_EXPERIMENT: Experiment = {
     hat: [0, 2, 4, 6, 8, 10, 12, 14].includes(index),
   })),
   tone: { distortion: 58, filter: 3400 },
-  guitar: { engine: 'samples', preset: 'ZIG DRIVE', drive: 32, tone: 0.66, space: 0.12 },
+  guitar: { engine: 'samples', preset: 'ZIG DRIVE', drive: 22, tone: 0.66, space: 0.12 },
   createdAt: new Date().toISOString(),
 };
 
@@ -128,7 +128,7 @@ export function toDocument(experiment: Experiment): ExperimentDocument {
     tone: { ...experiment.tone },
     created_at: experiment.createdAt,
     guitar: { ...experiment.guitar },
-    assets: { guitar: { name: 'Karoryfer Emilyguitar', license: 'CC0-1.0', version: '1.001' } },
+    assets: { guitar: { name: 'FreePats Electric Guitar FSBS Clean bridge', license: 'CC0-1.0', version: '2026-08-07' } },
     audio_engine: 'web-audio-sampler/1',
     version: 2,
   };

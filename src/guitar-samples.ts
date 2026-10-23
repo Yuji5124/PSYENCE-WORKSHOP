@@ -1,16 +1,16 @@
 import { seededRandom } from './model';
 
 type Root = { midi: number; velocity_layers: Array<{ velocity: number; round_robins: string[] }> };
-type Manifest = { roots: Root[] };
+type Manifest = { roots: Root[]; release_seconds: number };
 
-/** Loads only the sample notes used by a pattern. Source: CC0 Karoryfer Emilyguitar. */
+/** Loads only the sample notes used by a pattern. Source: CC0 FreePats Fender clean bank. */
 export class GuitarSampleBank {
   private manifest: Manifest | null = null;
   private readonly buffers = new Map<string, Promise<AudioBuffer>>();
 
   private async getManifest(): Promise<Manifest> {
     if (!this.manifest) {
-      const response = await fetch(`${import.meta.env.BASE_URL}audio/guitar/emilyguitar/manifest.json`);
+      const response = await fetch(`${import.meta.env.BASE_URL}audio/guitar/freepats-fsbs-clean/manifest.json`);
       if (!response.ok) throw new Error('ギター音源のマニフェストを読み込めません。');
       this.manifest = await response.json() as Manifest;
     }
@@ -26,7 +26,7 @@ export class GuitarSampleBank {
     const file = layer.round_robins[rr];
     let loading = this.buffers.get(file);
     if (!loading) {
-      loading = fetch(`${import.meta.env.BASE_URL}audio/guitar/emilyguitar/${file}`)
+      loading = fetch(`${import.meta.env.BASE_URL}audio/guitar/freepats-fsbs-clean/${file}`)
         .then((response) => { if (!response.ok) throw new Error(`サンプルを読み込めません: ${file}`); return response.arrayBuffer(); })
         .then((data) => context.decodeAudioData(data));
       this.buffers.set(file, loading);
@@ -35,11 +35,11 @@ export class GuitarSampleBank {
   }
 
   async prepare(context: BaseAudioContext, pitches: Array<{ pitch: number; accent: boolean }>, seed: string): Promise<void> {
-    await Promise.all(pitches.flatMap((note) => [0, 1, 2].map((round) => this.resolve(context, note.pitch, note.accent ? 120 : 60, seed, round))));
+    await Promise.all(pitches.flatMap((note) => [0, 1, 2, 3].map((round) => this.resolve(context, note.pitch, note.accent ? 112 : 74, seed, round))));
   }
 
   async play(context: BaseAudioContext, destination: AudioNode, pitch: number, accent: boolean, gate: number, seed: string, round: number, drive: number, tone: number, space: number, time: number, palmMute = false): Promise<void> {
-    const voice = await this.resolve(context, pitch, accent ? 120 : 60, seed, round);
+    const voice = await this.resolve(context, pitch, accent ? 112 : 74, seed, round);
     if (!voice || context.state === 'closed') return;
     const source = context.createBufferSource();
     source.buffer = voice.buffer;
@@ -54,12 +54,13 @@ export class GuitarSampleBank {
     const envelope = context.createGain();
     const start = Math.max(context.currentTime + 0.003, time);
     const end = start + Math.max(0.045, palmMute ? gate * 0.36 : gate);
+    const release = palmMute ? 0.12 : (this.manifest?.release_seconds ?? 1.1);
     envelope.gain.setValueAtTime(0.0001, start);
     envelope.gain.linearRampToValueAtTime(accent ? 0.56 : 0.38, start + 0.006);
-    envelope.gain.setTargetAtTime(0.0001, end, 0.035);
+    envelope.gain.setTargetAtTime(0.0001, end, release / 5);
     source.connect(shaper); shaper.connect(filter); filter.connect(envelope); envelope.connect(destination);
     source.start(start);
-    source.stop(end + 0.18);
+    source.stop(end + release);
     if (space > 0) {
       const delay = context.createDelay(0.25); delay.delayTime.value = 0.055;
       const echo = context.createGain(); echo.gain.value = space * 0.22;

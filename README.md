@@ -44,9 +44,9 @@ The `.github/workflows/pages.yml` workflow tests and builds on pushes to `main`,
 ## Current limits
 
 - This is a short-loop experiment sequencer, not a full DAW. It has no multitrack recording, arrangement editor, microphone input, or mastering chain.
-- The guitar is a curated CC0 multisample mapped to 13 roots. Other notes use playback-rate transposition, so extreme registers can sound less natural. It is not a full SFZ engine.
+- The guitar uses the FreePats CC0 Fender clean bridge multisample, curated to 13 roots with up to two velocity layers and four round robins. Notes use playback-rate transposition to nearby roots, so notes outside the sampled roots can still sound less natural. It is not a full SFZ engine.
 - Muted articulation uses a shortened gate and darker filter response; it is not a dedicated palm-muted recording layer. Slides and pitch bends are not implemented.
-- The current FreePats candidate is not used because its license could not be verified from the primary source in this cloud network session. See the research note before substituting it.
+- The samples have a clean amp/effects treatment from FreePats; DRIVE adds further saturation. See the research note for the source bank, selection, and licensing.
 - VOICEVOX Song was verified through a local CPU engine, but is not embedded in this app. Singer attribution and voicebank-specific terms apply to generated vocal audio.
 - Use a current desktop browser or iPhone Safari with Web Audio and `OfflineAudioContext` support. On iPhone, the first PLAY press must be a user gesture.
 - Browser local save is device-specific. Keep the downloaded JSON as a portable backup. SOUNDVAULT's format and write flow must be reviewed before adding a destination adapter.
