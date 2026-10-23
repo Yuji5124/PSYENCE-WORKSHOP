@@ -41,7 +41,7 @@ function distortionCurve(amount: number): Float32Array<ArrayBuffer> {
   if (cached) return cached;
   const samples = 44_100;
   const curve = new Float32Array(samples);
-  const k = amount * 12;
+  const k = amount * 6;
   const normalization = k ? Math.tanh(1 + k) : 1;
   for (let index = 0; index < samples; index += 1) {
     const x = (index * 2) / (samples - 1) - 1;
@@ -95,7 +95,7 @@ function scheduleGuitar(context: BaseAudioContext, master: AudioNode, noise: Aud
   noiseFilter.type = 'highpass';
   noiseFilter.frequency.setValueAtTime(720, time);
   const noiseEnvelope = context.createGain();
-  noiseEnvelope.gain.setValueAtTime(accent ? 0.19 : 0.13, time);
+  noiseEnvelope.gain.setValueAtTime(accent ? 0.09 : 0.055, time);
   noiseEnvelope.gain.exponentialRampToValueAtTime(0.0001, time + 0.095);
   pickNoise.connect(noiseFilter);
   noiseFilter.connect(noiseEnvelope);
