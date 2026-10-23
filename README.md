@@ -25,7 +25,7 @@ Open the local URL printed by Vite. Press **PLAY** once to unlock audio in Safar
 - **MUTATE** changes one to three riff pitches. **UNDO** restores the previous riff. Sample round robins use the seed and step/bar position deterministically.
 - Edit the seed or use the shuffle control. Pattern, sound engine, preset, controls, and asset/license provenance are stored in JSON version 2. Version 1 Phase 0 JSON still loads as the original synth.
 - **SAVE EXPERIMENT** saves to local browser storage when available and downloads `EXP-001_PINK-NOISE.json`. **LOAD JSON** restores a compatible experiment.
-- **EXPORT WAV** renders four bars (about eight seconds at 120 BPM) as `EXP-001_PINK-NOISE.wav`.
+- **EXPORT 20S WAV** renders the current one-bar pattern continuously for exactly 20 seconds (10 bars at 120 BPM) as `EXP-001_PINK-NOISE-20S.wav`. A short fade at the end prevents an abrupt cut; changing BPM changes the number of bars, not the file duration.
 
 The Live Web Audio scheduler uses a lookahead queue; pattern changes are applied at a loop boundary. WAV uses the same sample bank, sound parameters, seeded drum noise, and pattern scheduler. Tiny differences can remain across browser/audio hardware implementations.
 

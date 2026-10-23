@@ -56,7 +56,7 @@ ROOT.innerHTML = `
         </div>
         <div class="action-row">
           <div class="mutation-actions"><button class="button button-pink" id="mutate-button" type="button"><span class="button-spark">✳</span> MUTATE</button><button class="button button-quiet" id="undo-button" type="button" disabled>↶ UNDO</button><label class="seed-control">SEED <input id="seed-control" type="text" maxlength="32" value="ZIG-001" aria-label="Random seed" /><button id="random-seed-button" class="icon-button" type="button" aria-label="Generate random seed" title="Generate random seed">⤨</button></label></div>
-          <div class="file-actions"><button class="button button-green" id="save-button" type="button">SAVE EXPERIMENT <span>↓</span></button><button class="button button-outline" id="wav-button" type="button"><span class="wav-icon">◖</span> EXPORT WAV</button><button class="button button-quiet load-button" id="load-button" type="button">LOAD JSON <span>↗</span></button><input id="json-file" type="file" accept="application/json,.json" hidden /></div>
+          <div class="file-actions"><button class="button button-green" id="save-button" type="button">SAVE EXPERIMENT <span>↓</span></button><button class="button button-outline" id="wav-button" type="button"><span class="wav-icon">◖</span> EXPORT 20S WAV</button><button class="button button-quiet load-button" id="load-button" type="button">LOAD JSON <span>↗</span></button><input id="json-file" type="file" accept="application/json,.json" hidden /></div>
         </div>
         <div id="status-message" class="status-message" role="status" aria-live="polite">最初のパターンを読み込みました。</div>
       </section>
@@ -330,13 +330,13 @@ $<HTMLButtonElement>('wav-button').addEventListener('click', async (event) => {
   button.innerHTML = '<span class="spinner"></span> RENDERING…';
   try {
     const wav = await renderWav(experiment);
-    downloadBlob(wav, 'EXP-001_PINK-NOISE.wav');
-    showStatus(`WAVを書き出しました（4小節 / 約${(60 / experiment.bpm * 16).toFixed(1)}秒）。`);
+    downloadBlob(wav, 'EXP-001_PINK-NOISE-20S.wav');
+    showStatus('20秒のテストWAVを書き出しました。末尾に短いフェードを入れています。');
   } catch (error) {
     showStatus(error instanceof Error ? error.message : 'WAVを書き出せませんでした。', true);
   } finally {
     button.disabled = false;
-    button.innerHTML = '<span class="wav-icon">◖</span> EXPORT WAV';
+    button.innerHTML = '<span class="wav-icon">◖</span> EXPORT 20S WAV';
   }
 });
 

@@ -264,15 +264,18 @@ export class LiveAudioEngine {
 
 export async function renderWav(experiment: Experiment): Promise<Blob> {
   const barSeconds = 60 / experiment.bpm * 4;
-  const duration = barSeconds * 4;
+  const duration = 20;
   const context = new OfflineAudioContext(2, Math.ceil(duration * 44_100), 44_100);
-  const master = makeGraph(context);
+  const master = makeGraph(context) as GainNode;
+  master.gain.setValueAtTime(0.7, duration - 0.08);
+  master.gain.linearRampToValueAtTime(0.0001, duration);
   const noise = makeNoiseBuffer(context, experiment.seed);
   if (experiment.guitar.engine === 'samples') await guitarSamples.prepare(context, experiment.riff.filter((note): note is typeof note & { pitch: number } => note.pitch !== null).map((note) => ({ pitch: note.pitch, accent: note.accent })), experiment.seed);
   const sixteenth = 60 / experiment.bpm / 4;
-  for (let bar = 0; bar < 4; bar += 1) {
+  for (let bar = 0; bar < Math.ceil(duration / barSeconds); bar += 1) {
     for (let step = 0; step < 16; step += 1) {
-      scheduleStep(context, master, noise, experiment, step, bar * barSeconds + step * sixteenth + 0.01, bar);
+      const time = bar * barSeconds + step * sixteenth + 0.01;
+      if (time < duration - 0.08) scheduleStep(context, master, noise, experiment, step, time, bar);
     }
   }
   const rendered = await context.startRendering();
