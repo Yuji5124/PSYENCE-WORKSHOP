@@ -35,6 +35,7 @@ button:disabled { cursor: not-allowed; opacity: .42; }
 .artist-tag { display: flex; flex-direction: column; align-items: flex-end; gap: 1px; }
 .artist-label, .eyebrow-label { color: var(--muted); font: 9px var(--mono); letter-spacing: .14em; }
 .artist-tag strong { color: var(--green); font: 800 22px var(--display); letter-spacing: .07em; }
+.song-lab-link { color: var(--pink); font: 9px var(--mono); text-decoration: none; letter-spacing: .08em; }
 main { padding: 52px 0 0; }
 .hero { display: grid; grid-template-columns: .92fr 1.08fr; gap: 7%; align-items: center; margin-bottom: 42px; }
 .eyebrow { display: flex; align-items: center; gap: 12px; font: 10px var(--mono); color: #a4a2a8; letter-spacing: .15em; }
@@ -174,7 +175,8 @@ footer b { color: #b3b1b8; font-weight: 400; }
 
 @media (max-width: 720px) {
   .shell { width: min(100% - 28px, 560px); }
-  .topbar { min-height: 69px; }
+  .topbar { min-height: 69px; flex-wrap: wrap; gap: 9px; padding: 10px 0; }
+  .song-lab-link { flex-basis: 100%; text-align: right; }
   .top-meta { gap: 0; }
   .top-index { display: none; }
   .artist-label { font-size: 7px; }

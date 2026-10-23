@@ -2,6 +2,8 @@
 
 **EXP-001 — PINK NOISE** is a small browser music experiment by the evolving virtual artist ZIG. Phase 1A adds a real-recorded, CC0 electric-guitar sample bank alongside the original Phase 0 synth, with synchronized Web Audio drums. No paid API, account, external sound service, or installed audio plugin is required.
 
+**PSYLO** is ZIG's first original song study. Its separate [chorus comparison page](./psylo.html) lets you audition three eight-bar melody sketches over the existing sampled guitar with synthesized drums and bass. The song brief, story, lyrics, melody and research notebook live in [songs/PSYLO](./songs/PSYLO/README.md).
+
 ZIG is a changing point of view, not a recreation of hide. This project does not copy existing melodies, signature riffs, recordings, or vocals. The source and rights research, including limitations and the VOICEVOX Song test, is in [docs/ZIG-SOUND-RESEARCH.md](docs/ZIG-SOUND-RESEARCH.md). SOUNDVAULT is not modified; experiment storage remains behind `ExperimentStore`.
 
 ## Run locally

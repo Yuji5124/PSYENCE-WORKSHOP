@@ -217,19 +217,19 @@
         {
           "velocity": 74,
           "round_robins": [
-            "C#4_s5_soft_01.ogg",
-            "C#4_s5_soft_02.ogg",
-            "C#4_s5_soft_03.ogg",
-            "C#4_s5_soft_04.ogg"
+            "Csharp4_s5_soft_01.ogg",
+            "Csharp4_s5_soft_02.ogg",
+            "Csharp4_s5_soft_03.ogg",
+            "Csharp4_s5_soft_04.ogg"
           ]
         },
         {
           "velocity": 112,
           "round_robins": [
-            "C#4_s5_01.ogg",
-            "C#4_s5_02.ogg",
-            "C#4_s5_03.ogg",
-            "C#4_s5_04.ogg"
+            "Csharp4_s5_01.ogg",
+            "Csharp4_s5_02.ogg",
+            "Csharp4_s5_03.ogg",
+            "Csharp4_s5_04.ogg"
           ]
         }
       ]

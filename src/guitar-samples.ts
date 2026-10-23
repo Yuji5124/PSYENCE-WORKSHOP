@@ -7,6 +7,7 @@ type Manifest = { roots: Root[]; release_seconds: number };
 export class GuitarSampleBank {
   private manifest: Manifest | null = null;
   private readonly buffers = new Map<string, Promise<AudioBuffer>>();
+  private decodeQueue: Promise<void> = Promise.resolve();
 
   private async getManifest(): Promise<Manifest> {
     if (!this.manifest) {
@@ -26,9 +27,17 @@ export class GuitarSampleBank {
     const file = layer.round_robins[rr];
     let loading = this.buffers.get(file);
     if (!loading) {
-      loading = fetch(`${import.meta.env.BASE_URL}audio/guitar/freepats-fsbs-clean/${file}`)
+      loading = fetch(`${import.meta.env.BASE_URL}audio/guitar/freepats-fsbs-clean/${encodeURIComponent(file)}`)
         .then((response) => { if (!response.ok) throw new Error(`サンプルを読み込めません: ${file}`); return response.arrayBuffer(); })
-        .then((data) => context.decodeAudioData(data));
+        .then((data) => {
+          // Mobile Safari and low-memory browsers are less reliable when many
+          // OGG clips are decoded at once. Fetch in parallel, decode in order.
+          const decoded = this.decodeQueue.then(() => context.decodeAudioData(data));
+          this.decodeQueue = decoded.then(() => undefined, () => undefined);
+          return decoded.catch((error: unknown) => {
+            throw new Error(`ギターサンプルをデコードできません: ${file}`, { cause: error });
+          });
+        });
       this.buffers.set(file, loading);
     }
     return { buffer: await loading, rate: 2 ** ((pitch - root.midi) / 12) };
