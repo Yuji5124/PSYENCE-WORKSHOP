@@ -23,4 +23,10 @@ describe('experiment pattern', () => {
     doc.steps.riff.pop();
     expect(() => fromDocument(doc)).toThrow(/8ステップ/);
   });
+
+  it('rejects notes outside the editor range', () => {
+    const doc = toDocument(DEFAULT_EXPERIMENT);
+    doc.steps.riff[0].pitch = 30;
+    expect(() => fromDocument(doc)).toThrow(/リフステップ/);
+  });
 });

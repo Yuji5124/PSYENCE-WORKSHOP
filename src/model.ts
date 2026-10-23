@@ -137,7 +137,7 @@ export function fromDocument(value: unknown): Experiment {
     throw new Error('リフは8ステップ、ドラムは16ステップ必要です。');
   }
   const riff = doc.steps.riff.map((step) => {
-    if (!step || (step.pitch !== null && (!Number.isInteger(step.pitch) || step.pitch < 24 || step.pitch > 84)) || ![0.5, 1, 1.5].includes(step.length) || typeof step.accent !== 'boolean') {
+    if (!step || (step.pitch !== null && (!Number.isInteger(step.pitch) || step.pitch < 36 || step.pitch > 72)) || ![0.5, 1, 1.5].includes(step.length) || typeof step.accent !== 'boolean') {
       throw new Error('リフステップの値が正しくありません。');
     }
     return { pitch: step.pitch, length: step.length, accent: step.accent };
