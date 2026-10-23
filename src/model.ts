@@ -2,6 +2,7 @@ export type RiffStep = {
   pitch: number | null;
   length: 0.5 | 1 | 1.5;
   accent: boolean;
+  palmMute: boolean;
 };
 
 export type DrumStep = {
@@ -16,6 +17,7 @@ export type Experiment = {
   riff: RiffStep[];
   drums: DrumStep[];
   tone: { distortion: number; filter: number };
+  guitar: { engine: 'samples' | 'synth'; preset: 'ZIG DRIVE' | 'ZIG STRANGE' | 'ZIG CYBER'; drive: number; tone: number; space: number };
   createdAt: string;
 };
 
@@ -28,21 +30,24 @@ export type ExperimentDocument = {
   steps: { riff: RiffStep[]; drums: DrumStep[] };
   tone: { distortion: number; filter: number };
   created_at: string;
-  version: 1;
+  guitar?: Experiment['guitar'];
+  assets?: { guitar: { name: 'FreePats Electric Guitar FSBS Clean bridge'; license: 'CC0-1.0'; version: '2026-08-07' } };
+  audio_engine?: 'web-audio-sampler/1';
+  version: 1 | 2;
 };
 
 export const DEFAULT_EXPERIMENT: Experiment = {
   bpm: 120,
   seed: 'ZIG-001',
   riff: [
-    { pitch: 40, length: 0.5, accent: true },
-    { pitch: null, length: 0.5, accent: false },
-    { pitch: 43, length: 1, accent: false },
-    { pitch: 45, length: 0.5, accent: true },
-    { pitch: null, length: 0.5, accent: false },
-    { pitch: 47, length: 1, accent: true },
-    { pitch: 43, length: 0.5, accent: false },
-    { pitch: 40, length: 1, accent: true },
+    { pitch: 40, length: 0.5, accent: true, palmMute: false },
+    { pitch: null, length: 0.5, accent: false, palmMute: false },
+    { pitch: 43, length: 1, accent: false, palmMute: false },
+    { pitch: 45, length: 0.5, accent: true, palmMute: false },
+    { pitch: null, length: 0.5, accent: false, palmMute: false },
+    { pitch: 47, length: 1, accent: true, palmMute: false },
+    { pitch: 43, length: 0.5, accent: false, palmMute: false },
+    { pitch: 40, length: 1, accent: true, palmMute: false },
   ],
   drums: Array.from({ length: 16 }, (_, index) => ({
     kick: [0, 6, 8, 14].includes(index),
@@ -50,6 +55,7 @@ export const DEFAULT_EXPERIMENT: Experiment = {
     hat: [0, 2, 4, 6, 8, 10, 12, 14].includes(index),
   })),
   tone: { distortion: 58, filter: 3400 },
+  guitar: { engine: 'samples', preset: 'ZIG DRIVE', drive: 22, tone: 0.66, space: 0.12 },
   createdAt: new Date().toISOString(),
 };
 
@@ -59,6 +65,7 @@ export function cloneExperiment(experiment: Experiment): Experiment {
     riff: experiment.riff.map((step) => ({ ...step })),
     drums: experiment.drums.map((step) => ({ ...step })),
     tone: { ...experiment.tone },
+    guitar: { ...experiment.guitar },
   };
 }
 
@@ -120,15 +127,18 @@ export function toDocument(experiment: Experiment): ExperimentDocument {
     },
     tone: { ...experiment.tone },
     created_at: experiment.createdAt,
-    version: 1,
+    guitar: { ...experiment.guitar },
+    assets: { guitar: { name: 'FreePats Electric Guitar FSBS Clean bridge', license: 'CC0-1.0', version: '2026-08-07' } },
+    audio_engine: 'web-audio-sampler/1',
+    version: 2,
   };
 }
 
 export function fromDocument(value: unknown): Experiment {
   if (!value || typeof value !== 'object') throw new Error('JSONの形式が正しくありません。');
   const doc = value as Partial<ExperimentDocument>;
-  if (doc.experiment_id !== 'EXP-001' || doc.version !== 1 || !doc.steps || !doc.tone) {
-    throw new Error('EXP-001 version 1 のJSONではありません。');
+  if (doc.experiment_id !== 'EXP-001' || ![1, 2].includes(doc.version ?? 0) || !doc.steps || !doc.tone) {
+    throw new Error('EXP-001 version 1/2 のJSONではありません。');
   }
   if (!Number.isFinite(doc.bpm) || (doc.bpm as number) < 60 || (doc.bpm as number) > 180) {
     throw new Error('BPMは60〜180の範囲で指定してください。');
@@ -140,7 +150,7 @@ export function fromDocument(value: unknown): Experiment {
     if (!step || (step.pitch !== null && (!Number.isInteger(step.pitch) || step.pitch < 36 || step.pitch > 72)) || ![0.5, 1, 1.5].includes(step.length) || typeof step.accent !== 'boolean') {
       throw new Error('リフステップの値が正しくありません。');
     }
-    return { pitch: step.pitch, length: step.length, accent: step.accent };
+    return { pitch: step.pitch, length: step.length, accent: step.accent, palmMute: Boolean(step.palmMute) };
   });
   const drums = doc.steps.drums.map((step) => {
     if (!step || typeof step.kick !== 'boolean' || typeof step.snare !== 'boolean' || typeof step.hat !== 'boolean') {
@@ -149,12 +159,17 @@ export function fromDocument(value: unknown): Experiment {
     return { kick: step.kick, snare: step.snare, hat: step.hat };
   });
   if (!Number.isFinite(doc.tone.distortion) || !Number.isFinite(doc.tone.filter)) throw new Error('音色パラメータが正しくありません。');
+  const guitar = doc.version === 2 ? doc.guitar : DEFAULT_EXPERIMENT.guitar;
+  if (doc.version === 2 && (!guitar || !['samples', 'synth'].includes(guitar.engine) || !['ZIG DRIVE', 'ZIG STRANGE', 'ZIG CYBER'].includes(guitar.preset) || !Number.isFinite(guitar.drive) || !Number.isFinite(guitar.tone) || !Number.isFinite(guitar.space) || guitar.drive < 0 || guitar.drive > 100 || guitar.tone < 0 || guitar.tone > 1 || guitar.space < 0 || guitar.space > 1)) {
+    throw new Error('ギター音色の値が正しくありません。');
+  }
   return {
     bpm: doc.bpm as number,
     seed: typeof doc.seed === 'string' ? doc.seed : 'ZIG-001',
     riff,
     drums,
     tone: { distortion: Math.max(0, Math.min(100, doc.tone.distortion)), filter: Math.max(200, Math.min(8000, doc.tone.filter)) },
+    guitar: doc.version === 2 && guitar ? { ...guitar } : { ...DEFAULT_EXPERIMENT.guitar, engine: 'synth' },
     createdAt: typeof doc.created_at === 'string' ? doc.created_at : new Date().toISOString(),
   };
 }

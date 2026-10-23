@@ -1,7 +1,7 @@
 import './style.css';
 import { LiveAudioEngine, renderWav } from './audio';
 import { experimentStore } from './experiment-store';
-import { cloneExperiment, createRandomSeed, DEFAULT_EXPERIMENT, fromDocument, midiLabel, mutateExperiment, toDocument, type RiffStep } from './model';
+import { cloneExperiment, createRandomSeed, DEFAULT_EXPERIMENT, fromDocument, midiLabel, mutateExperiment, toDocument, type Experiment, type RiffStep } from './model';
 
 const ROOT = document.querySelector<HTMLDivElement>('#app');
 if (!ROOT) throw new Error('Application root was not found.');
@@ -50,12 +50,13 @@ ROOT.innerHTML = `
         </div>
         <div class="control-row">
           <label class="range-control bpm-control" for="bpm-control"><span class="control-name">TEMPO <small>BPM</small></span><output id="bpm-value">120</output><input id="bpm-control" type="range" min="60" max="180" value="120" /></label>
-          <label class="range-control" for="distortion-control"><span class="control-name">DISTORTION <small>DRIVE</small></span><output id="distortion-value">42%</output><input id="distortion-control" type="range" min="0" max="100" value="42" /></label>
-          <label class="range-control" for="filter-control"><span class="control-name">FILTER <small>LPF</small></span><output id="filter-value">3.2 kHz</output><input id="filter-control" type="range" min="200" max="8000" value="3200" /></label>
+          <label class="range-control" for="drive-control"><span class="control-name">DRIVE</span><output id="drive-value">32%</output><input id="drive-control" type="range" min="0" max="100" value="32" /></label>
+          <label class="range-control" for="tone-control"><span class="control-name">TONE</span><output id="tone-value">66%</output><input id="tone-control" type="range" min="0" max="100" value="66" /></label>
+          <label class="range-control" for="space-control"><span class="control-name">SPACE</span><output id="space-value">12%</output><input id="space-control" type="range" min="0" max="100" value="12" /></label>
         </div>
         <div class="action-row">
           <div class="mutation-actions"><button class="button button-pink" id="mutate-button" type="button"><span class="button-spark">✳</span> MUTATE</button><button class="button button-quiet" id="undo-button" type="button" disabled>↶ UNDO</button><label class="seed-control">SEED <input id="seed-control" type="text" maxlength="32" value="ZIG-001" aria-label="Random seed" /><button id="random-seed-button" class="icon-button" type="button" aria-label="Generate random seed" title="Generate random seed">⤨</button></label></div>
-          <div class="file-actions"><button class="button button-green" id="save-button" type="button">SAVE EXPERIMENT <span>↓</span></button><button class="button button-outline" id="wav-button" type="button"><span class="wav-icon">◖</span> EXPORT WAV</button><button class="button button-quiet load-button" id="load-button" type="button">LOAD JSON <span>↗</span></button><input id="json-file" type="file" accept="application/json,.json" hidden /></div>
+          <div class="file-actions"><button class="button button-green" id="save-button" type="button">SAVE EXPERIMENT <span>↓</span></button><button class="button button-outline" id="wav-button" type="button"><span class="wav-icon">◖</span> EXPORT 20S WAV</button><button class="button button-quiet load-button" id="load-button" type="button">LOAD JSON <span>↗</span></button><input id="json-file" type="file" accept="application/json,.json" hidden /></div>
         </div>
         <div id="status-message" class="status-message" role="status" aria-live="polite">最初のパターンを読み込みました。</div>
       </section>
@@ -64,7 +65,7 @@ ROOT.innerHTML = `
 
       <section class="lab-grid">
         <article class="panel lab-panel riff-panel">
-          <div class="panel-heading"><div class="panel-title-wrap"><span class="lab-icon riff-icon">〰</span><div><span class="eyebrow-label">SYNTH / 8 STEPS</span><h3>RIFF LAB</h3></div></div><div class="panel-tag">GTR-SYNTH <span>01</span></div></div>
+          <div class="panel-heading"><div class="panel-title-wrap"><span class="lab-icon riff-icon">〰</span><div><span class="eyebrow-label">GUITAR / 8 STEPS</span><h3>RIFF LAB</h3></div></div><div class="panel-tag"><select id="guitar-preset" aria-label="Guitar preset"><option>ZIG DRIVE</option><option>ZIG STRANGE</option><option>ZIG CYBER</option></select> <button class="button button-quiet" id="ab-button" type="button">A/B: SAMPLE</button></div></div>
           <p class="panel-intro">音程、長さ、アクセントを並べて、まだ名前のないリフを探す。</p>
           <div id="riff-grid" class="riff-grid" aria-label="Eight-step riff sequencer"></div>
           <div class="grid-legend"><span><i class="legend-dot pink-dot"></i> NOTE / CLICK TO EDIT</span><span><i class="legend-dot green-dot"></i> ACCENT</span><span>REST = SILENCE, ALSO MUSIC</span></div>
@@ -82,7 +83,7 @@ ROOT.innerHTML = `
         <div class="manifesto-mark">Z.</div><div><span class="eyebrow-label">A NOTE FROM THE WORKSHOP</span><p>ZIG is a changing point of view, not a reconstruction. We carry forward questions about contrast, speed, play, and surprise—then make new sounds for now.</p><small>この工房は特定のアーティストや録音を再現しません。ZIGの記録は、実験と問いを更新していくためのものです。</small></div><div class="manifesto-stamp">SOUND<br>IN PROGRESS</div>
       </section>
     </main>
-    <footer><span>PSYENCE WORKSHOP <b>©</b> 2026</span><span>NO SOURCE AUDIO. ALL SOUND SYNTHESIZED IN YOUR BROWSER.</span><span>EXP-001 / <b>PINK NOISE</b></span></footer>
+    <footer><span>PSYENCE WORKSHOP <b>©</b> 2026</span><span>CC0 GUITAR SAMPLES + LOCAL WEB AUDIO / NO PAID API</span><span>EXP-001 / <b>PINK NOISE</b></span></footer>
   </div>`;
 
 const $ = <T extends HTMLElement>(id: string) => {
@@ -132,6 +133,7 @@ function renderRiff() {
         <option value="1.5" ${step.length === 1.5 ? 'selected' : ''}>LONG</option>
       </select>
       <button class="accent-toggle ${step.accent ? 'is-on' : ''}" type="button" data-accent="${index}" aria-pressed="${step.accent}" aria-label="${step.accent ? 'Disable' : 'Enable'} accent for step ${index + 1}"><span>ACC</span><i></i></button>
+      <button class="mute-toggle ${step.palmMute ? 'is-on' : ''}" type="button" data-mute="${index}" aria-pressed="${step.palmMute}" aria-label="Toggle palm mute for step ${index + 1}">MUTE</button>
     </div>`).join('');
 }
 
@@ -151,12 +153,12 @@ function renderState() {
   const bpm = $<HTMLInputElement>('bpm-control');
   bpm.value = String(experiment.bpm);
   $<HTMLOutputElement>('bpm-value').value = String(experiment.bpm);
-  const distortion = $<HTMLInputElement>('distortion-control');
-  distortion.value = String(experiment.tone.distortion);
-  $<HTMLOutputElement>('distortion-value').value = `${experiment.tone.distortion}%`;
-  const filter = $<HTMLInputElement>('filter-control');
-  filter.value = String(experiment.tone.filter);
-  $<HTMLOutputElement>('filter-value').value = experiment.tone.filter >= 1000 ? `${(experiment.tone.filter / 1000).toFixed(1)} kHz` : `${experiment.tone.filter} Hz`;
+  for (const parameter of ['drive', 'tone', 'space'] as const) {
+    $<HTMLInputElement>(`${parameter}-control`).value = String(Math.round(experiment.guitar[parameter] * (parameter === 'tone' || parameter === 'space' ? 100 : 1)));
+    $<HTMLOutputElement>(`${parameter}-value`).value = `${Math.round(experiment.guitar[parameter] * (parameter === 'tone' || parameter === 'space' ? 100 : 1))}%`;
+  }
+  $<HTMLSelectElement>('guitar-preset').value = experiment.guitar.preset;
+  $<HTMLButtonElement>('ab-button').textContent = `A/B: ${experiment.guitar.engine === 'samples' ? 'SAMPLE' : 'SYNTH'}`;
   $<HTMLInputElement>('seed-control').value = experiment.seed;
   updateTransportControls();
 }
@@ -189,12 +191,13 @@ riffGrid.addEventListener('change', (event) => {
 riffGrid.addEventListener('click', (event) => {
   const target = event.target;
   if (!(target instanceof HTMLElement)) return;
-  const button = target.closest<HTMLButtonElement>('[data-accent]');
+  const button = target.closest<HTMLButtonElement>('[data-accent], [data-mute]');
   if (!button) return;
-  const index = Number(button.dataset.accent);
+  const index = Number(button.dataset.accent ?? button.dataset.mute);
   rememberRiff();
   const riff = experiment.riff.map((step) => ({ ...step }));
-  riff[index].accent = !riff[index].accent;
+  if (button.dataset.mute !== undefined) riff[index].palmMute = !riff[index].palmMute;
+  else riff[index].accent = !riff[index].accent;
   commitRiff(riff);
 });
 
@@ -258,16 +261,28 @@ $<HTMLInputElement>('bpm-control').addEventListener('input', (event) => {
   queuePatternUpdate();
 });
 
-$<HTMLInputElement>('distortion-control').addEventListener('input', (event) => {
-  experiment = { ...experiment, tone: { ...experiment.tone, distortion: Number((event.target as HTMLInputElement).value) } };
-  $<HTMLOutputElement>('distortion-value').value = `${experiment.tone.distortion}%`;
-  queuePatternUpdate();
-});
+for (const parameter of ['drive', 'tone', 'space'] as const) {
+  $<HTMLInputElement>(`${parameter}-control`).addEventListener('input', (event) => {
+    const value = Number((event.target as HTMLInputElement).value) / (parameter === 'drive' ? 1 : 100);
+    experiment = { ...experiment, guitar: { ...experiment.guitar, [parameter]: value } };
+    $<HTMLOutputElement>(`${parameter}-value`).value = `${Math.round(value * (parameter === 'drive' ? 1 : 100))}%`;
+    queuePatternUpdate();
+  });
+}
 
-$<HTMLInputElement>('filter-control').addEventListener('input', (event) => {
-  experiment = { ...experiment, tone: { ...experiment.tone, filter: Number((event.target as HTMLInputElement).value) } };
-  $<HTMLOutputElement>('filter-value').value = experiment.tone.filter >= 1000 ? `${(experiment.tone.filter / 1000).toFixed(1)} kHz` : `${experiment.tone.filter} Hz`;
-  queuePatternUpdate();
+$<HTMLSelectElement>('guitar-preset').addEventListener('change', (event) => {
+  const preset = (event.target as HTMLSelectElement).value as Experiment['guitar']['preset'];
+  const settings = {
+    'ZIG DRIVE': { drive: 42, tone: 0.7, space: 0.12 },
+    'ZIG STRANGE': { drive: 27, tone: 0.46, space: 0.35 },
+    'ZIG CYBER': { drive: 58, tone: 0.88, space: 0.06 },
+  }[preset];
+  experiment = { ...experiment, guitar: { ...experiment.guitar, preset, ...settings } };
+  renderState(); queuePatternUpdate(); showStatus(`${preset} guitar preset`);
+});
+$<HTMLButtonElement>('ab-button').addEventListener('click', () => {
+  experiment = { ...experiment, guitar: { ...experiment.guitar, engine: experiment.guitar.engine === 'samples' ? 'synth' : 'samples' } };
+  renderState(); queuePatternUpdate(); showStatus(`A/B — ${experiment.guitar.engine === 'samples' ? '実録音サンプル' : 'Phase 0 合成ギター'}`);
 });
 
 $<HTMLInputElement>('seed-control').addEventListener('change', (event) => {
@@ -315,13 +330,13 @@ $<HTMLButtonElement>('wav-button').addEventListener('click', async (event) => {
   button.innerHTML = '<span class="spinner"></span> RENDERING…';
   try {
     const wav = await renderWav(experiment);
-    downloadBlob(wav, 'EXP-001_PINK-NOISE.wav');
-    showStatus(`WAVを書き出しました（4小節 / 約${(60 / experiment.bpm * 16).toFixed(1)}秒）。`);
+    downloadBlob(wav, 'EXP-001_PINK-NOISE-20S.wav');
+    showStatus('20秒のテストWAVを書き出しました。末尾に短いフェードを入れています。');
   } catch (error) {
     showStatus(error instanceof Error ? error.message : 'WAVを書き出せませんでした。', true);
   } finally {
     button.disabled = false;
-    button.innerHTML = '<span class="wav-icon">◖</span> EXPORT WAV';
+    button.innerHTML = '<span class="wav-icon">◖</span> EXPORT 20S WAV';
   }
 });
 

@@ -129,6 +129,9 @@ h1 em { color: var(--pink); font-style: normal; }
 .accent-toggle i { width: 6px; height: 6px; border: 1px solid #5b5961; border-radius: 50%; }
 .accent-toggle.is-on { color: var(--green); }
 .accent-toggle.is-on i { border-color: var(--green); background: var(--green); box-shadow: 0 0 7px rgba(217,255,69,.45); }
+.mute-toggle { margin-top: 4px; padding: 4px 0 0; color: #65636b; background: transparent; border: 0; border-top: 1px solid #29282e; font: 7px var(--mono); cursor: pointer; }
+.mute-toggle.is-on { color: var(--pink); text-shadow: 0 0 8px rgba(255,60,159,.55); }
+.panel-tag select { padding: 4px; color: var(--green); background: #101014; border: 1px solid #414047; font: 8px var(--mono); }
 .grid-legend, .beat-legend { display: flex; align-items: center; gap: 13px; color: #75747b; font: 7px var(--mono); letter-spacing: .04em; }
 .grid-legend { padding-top: 12px; }
 .legend-dot { display: inline-block; width: 6px; height: 6px; margin-right: 4px; border-radius: 50%; vertical-align: 1px; }

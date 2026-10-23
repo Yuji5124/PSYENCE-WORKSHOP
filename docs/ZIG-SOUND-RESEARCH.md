@@ -1,0 +1,47 @@
+# ZIG SOUND ENGINE — Research Notes
+
+Checked 2026-10-23. This note distinguishes software licenses from the license of each sound bank/model. A repository's license is not evidence that separately downloaded samples, voicebanks, or trained weights share it.
+
+## Findings and decision
+
+| Candidate | Free / licensing / redistribution | Activity and CPU / Windows | TypeScript/Vite route | Phase 1A decision |
+|---|---|---|---|---|
+| FreePats Electric Guitar FSBS Clean | The official page and repo license identify CC0-1.0; this permits commercial use and redistribution. Checked `bridge` SFZ bank separately from the small demo bank. | Fender electric guitar direct sampled through an instrument interface, then amp/effects processed for a clean tone. Version 2026-08-07, active GitHub repo (pushed 2026-08-07; updated 2026-10-21). SFZ contains 4 round robins and two velocity groups through most of the core range. | Curated OGG note samples load on demand into Web Audio; no SFZ player is needed in browser. | **Adopted as the new browser source.** 13 roots / 96 clipped OGG variants (~2.2 MiB after converting and trimming source tails to 4s). |
+| sfizz | BSD-2-Clause software license permits use and redistribution subject to its notice/disclaimer. A soundfont's license remains independent. | C++ SFZ synthesizer; GitHub marked archived; latest release shown as 1.2.3 (2024-01-14), with Windows binaries. The source engine can run on CPU. | Native C/C++ library; Vite integration would need a maintained WASM build/bindings and licensed SFZ assets. | Not adopted: unnecessary runtime and WASM port for this browser experiment. |
+| Neural Amp Modeler (NAM) | Repository code is MIT; trained `.nam` model rights are separate and need a model-specific license check. | Python training/export repository; active (latest checked release v0.13.0, 2026-06-02). Real-time plugin is a separate project; CPU-capable native plugins exist, but inference performance depends on model and host. Windows setup is heavier than static samples. | Not a TypeScript library. A browser port would require a compatible WASM/runtime model and separately cleared weights. | Not adopted: model licensing/runtime adds cost and complexity without a suitable cleared model. |
+| Karoryfer / SFZ Instruments — Emilyguitar | Selected v1.001 bank has an included CC0-1.0 license. The catalog is not blanket-licensed: each instrument has its own terms. | Real Epiphone guitar recording with flatwound strings; four velocity layers and three round robins. | Curated OGG is straightforward in Web Audio. | Verified and used for the first sampled-guitar implementation, then replaced by FreePats FSBS Clean for its longer natural decays and more useful 4-RR clean Fender bank. Its assets are no longer bundled. |
+| VOICEVOX ENGINE / VOICEVOX Song | Engine repository provides LGPL v3 and documents an alternative license by contacting the maintainer. Voice library/character terms are separate. Engine metadata for the tested singer directs users to `VOICEVOX:波音リツ` credit and the singer's terms. | CPU-only Windows packages and CPU Docker image are published. Tested image reports engine 0.26.0; CPU generation succeeded. | Local HTTP engine API can be called from a local app, but default CORS does not authorize arbitrary GitHub Pages origins; no remote paid API is required. | **Song API verified**; not embedded in the public app. Tested original lyric phrase and generated a 6.165 s WAV with the Song/frame APIs. Character attribution/terms must accompany any distribution. |
+| OpenUtau | MIT editor software; each voicebank and resampler has its own terms and may restrict commercial use or redistribution. | Active; Windows arm64/x64 releases; desktop editor and external voicebank/resampler workflow. CPU use depends on chosen resampler and voicebank. | Desktop render/export can be brought into a web app as a WAV, but it is not an in-browser TS library. | Not selected for app embedding; viable manual composition fallback after voicebank clearance. |
+| DiffSinger | Apache-2.0 code; trained model checkpoints and datasets have separate licenses. No suitable Japanese singing model/license was verified for this task. | Python >=3.10 and PyTorch setup; active source. CPU-only inference is not promised by the checked setup docs; Windows installation is comparatively involved and model-dependent. | Python inference service or a substantial converted runtime/model would be needed; no direct Vite API. | Not adopted: model/voice permissions and practical CPU inference remain unverified. |
+
+## Primary sources
+
+- [FreePats Clean Electric Guitar](https://freepats.zenvoid.org/ElectricGuitar/clean-electric-guitar.html), [source SFZ/sample repo](https://github.com/freepats/electric-guitar-FSBS-clean), [2026-08-07 release](https://github.com/freepats/electric-guitar-FSBS-clean/releases/tag/2026-08-07), [CC0 license](https://github.com/freepats/electric-guitar-FSBS-clean/blob/main/LICENSE.txt), and [SFZ mapping](https://github.com/freepats/electric-guitar-FSBS-clean/blob/main/EGuitarFSBS-clean%20bridge%2020260807.sfz).
+- [sfizz repository and license](https://github.com/sfztools/sfizz), [releases](https://github.com/sfztools/sfizz/releases).
+- [NAM repository](https://github.com/sdatkinson/neural-amp-modeler), [license](https://github.com/sdatkinson/neural-amp-modeler/blob/main/LICENSE), [real-time plugin project](https://github.com/sdatkinson/NeuralAmpModelerPlugin).
+- [SFZ Instruments guitar catalog](https://sfzinstruments.github.io/guitars/); [Emilyguitar source, README, and license](https://github.com/sfzinstruments/karoryfer.emilyguitar); [v1.001 release](https://github.com/sfzinstruments/karoryfer.emilyguitar/releases/tag/v1.001).
+- [VOICEVOX ENGINE repository](https://github.com/VOICEVOX/voicevox_engine), [license](https://github.com/VOICEVOX/voicevox_engine/blob/master/LICENSE), [song API docs](https://github.com/VOICEVOX/voicevox_engine/blob/master/docs/song.md), [VOICEVOX speaker terms](http://canon-voice.com/kiyaku.html).
+- [OpenUtau repository](https://github.com/openutau/OpenUtau), [releases](https://github.com/openutau/OpenUtau/releases), [voicebank documentation](https://github.com/openutau/OpenUtau/wiki).
+- [DiffSinger repository](https://github.com/openvpi/DiffSinger), [license](https://github.com/openvpi/DiffSinger/blob/master/LICENSE), [setup documentation](https://github.com/openvpi/DiffSinger/blob/master/docs/getting_started.md).
+
+Repository metadata (license, latest release/push date, archive status) was checked from GitHub's repository/release API. Dates and release numbers above are a snapshot, not a promise of ongoing maintenance. Any software update or model/bank download needs a fresh license/version review.
+
+## Voice test result
+
+Using the official CPU Docker image `voicevox/voicevox_engine:cpu-latest` (engine 0.26.0), the `/sing_frame_audio_query` and `/frame_synthesis` singing path—not the speech `/audio_query` and `/synthesis` path—generated an original Japanese phrase, **「音で未来を塗り替える」**, from supplied kana notes, MIDI pitches, note-frame lengths, BPM 120, and a 15-frame leading rest. Result: mono PCM16, 24 kHz, 6.165 seconds, 295,980 bytes. CPU synthesis took 1.52 seconds; Docker image size was about 2.18 GB and observed container memory during generation was about 478 MiB. The CPU engine log selected CPU. The metadata identified the singer as 波音リツ and asks for `VOICEVOX:波音リツ` credit; review that singer's linked terms before sharing generated audio. This does not imitate hide or another singer.
+
+## ZIG vocal direction
+
+- **ZIG RAW:** close, unprocessed, natural articulation; select a voicebank with explicit commercial/distribution permission.
+- **ZIG EDGE:** restrained saturation and breath/grit processing applied to a licensed generated/rendered voice; no voice identity imitation.
+- **ZIG CYBER:** formant-safe delay/chorus/bit reduction as post-processing; keep lyrics intelligible.
+
+These are design targets, not three completed voice presets.
+
+## Runtime and rights notes
+
+The current guitar asset pack is 96 mono OGG files, about 2.2 MiB including manifest and CC0/source notices. Source regions include four round robins and two velocity groups for most notes in this subset. The source recordings are up to 31 seconds; curated playback copies are trimmed to four seconds, which covers the maximum note gate plus release used by the app. A decoded four-second sample occupies about 0.67 MiB in Web Audio's Float32 representation; only current-riff samples are fetched and cached. Browser memory depends on distinct notes/round robins loaded. Web Audio applies the source bank's 1.1 s note release (shortened for palm mute), tone, drive, and drum synthesis. Sample selection is deterministic from experiment seed and bar/step index. This remains a curated sampler, not a full SFZ player.
+
+The build and unit tests pass. Source OGGs were independently decoded by FFmpeg. A Chromium headless playback check was attempted, but the managed container could not complete Chromium startup, so actual browser audition and this implementation's sample-based WAV export are not claimed as verified. Listen in a supported browser before judging the instrument balance and transient quality.
+
+SOUNDVAULT is unchanged. Exported experiment JSON records engine/preset controls and sample identity/license; WAV and JSON remain user downloads. Attribution is retained even though CC0 does not require it.
