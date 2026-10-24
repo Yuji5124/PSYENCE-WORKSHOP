@@ -25,7 +25,7 @@ ROOT.innerHTML = `
     <header class="topbar">
       <a class="wordmark" href="#top" aria-label="PSYENCE WORKSHOP home"><span class="wordmark-symbol">P</span><span>PSYENCE<br>WORKSHOP</span></a>
       <div class="top-meta"><span class="live-mark"><i></i> EXPERIMENTAL AUDIO LAB</span><span class="top-index">FIELD NOTE / 001</span></div>
-      <div class="artist-tag"><span class="artist-label">VIRTUAL ARTIST</span><strong>ZIG</strong></div><a class="song-lab-link" href="./psylo.html">PSYLO CHORUS STUDY ↗</a>
+      <div class="artist-tag"><span class="artist-label">VIRTUAL ARTIST</span><strong>ZIG</strong></div><a class="song-lab-link" href="./psylo.html">PSYLO CHORUS STUDY ↗</a><a class="song-lab-link" href="./nobody.html">NOBODY ON AIR — 3 DEMOS ↗</a>
     </header>
 
     <main id="top">

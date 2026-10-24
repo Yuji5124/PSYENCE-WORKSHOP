@@ -4,6 +4,8 @@
 
 **PSYLO** is ZIG's first original song study. Its separate [chorus comparison page](./psylo.html) lets you audition three eight-bar melody sketches over the existing sampled guitar with synthesized drums and bass. The song brief, story, lyrics, melody and research notebook live in [songs/PSYLO](./songs/PSYLO/README.md).
 
+**NOBODY ON AIR** (FREAKTION SONG 001) is three different 30-second demos of one hook — A ROCK BROADCAST, B GHOST FREQUENCY, C FREAKTION REACTION — with VOICEVOX singing, on the [listening page](./nobody.html) (switch A/B/C, play/stop, vocal on/off, listening notes). Data, chords, riffs, melodies, lyrics, credits and how to regenerate: [songs/NOBODY-ON-AIR](./songs/NOBODY-ON-AIR/README.md).
+
 ZIG is a changing point of view, not a recreation of hide. This project does not copy existing melodies, signature riffs, recordings, or vocals. The source and rights research, including limitations and the VOICEVOX Song test, is in [docs/ZIG-SOUND-RESEARCH.md](docs/ZIG-SOUND-RESEARCH.md). SOUNDVAULT is not modified; experiment storage remains behind `ExperimentStore`.
 
 ## Run locally

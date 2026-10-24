@@ -7,6 +7,7 @@ export default defineConfig({
       input: {
         main: 'index.html',
         psylo: 'psylo.html',
+        nobody: 'nobody.html',
       },
     },
   },
