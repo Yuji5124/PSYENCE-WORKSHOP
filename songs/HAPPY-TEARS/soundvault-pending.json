@@ -1,0 +1,102 @@
+{
+  "status": "pending — SOUNDVAULT not reachable from this environment",
+  "howTo": "SOUNDVAULT の public/sounds/bgm/ に localFile をコピーし、data/sounds.json にレコードを追加して npm run scan (SONOVA docs/soundvault-integration.md)",
+  "records": [
+    {
+      "id": "zig_happy_tears_a_mp3",
+      "name": "ZIG HAPPY TEARS A BRASS RIFF (Phase 0)",
+      "file": "sounds/bgm/zig-happy-tears-a.mp3",
+      "category": "BGM",
+      "tags": [
+        "bgm",
+        "zig",
+        "psyence-workshop",
+        "freaktion",
+        "happy-tears",
+        "brass-riff"
+      ],
+      "duration": 30.2,
+      "format": "mp3",
+      "loop": false,
+      "volume": 0.8,
+      "sampleRate": 44100,
+      "license": "Original (orchestra samples VSCO-2-CE CC0; voices VOICEVOX — credit required)",
+      "source": "PSYENCE WORKSHOP songs/HAPPY-TEARS, rendered with SONOVA",
+      "author": "ZIG / PSYENCE WORKSHOP",
+      "notes": "160 BPM. 歌: VOICEVOX:玄野武宏 / VOICEVOX:白上虎太郎",
+      "collections": [
+        "ZIG HAPPY TEARS"
+      ],
+      "projectIds": [
+        "psyence-workshop"
+      ],
+      "versionOf": "zig_happy_tears",
+      "version": "A",
+      "localFile": "public/audio/happy-tears/A-mix.mp3"
+    },
+    {
+      "id": "zig_happy_tears_b_mp3",
+      "name": "ZIG HAPPY TEARS B ORCHESTRA RIOT (Phase 0)",
+      "file": "sounds/bgm/zig-happy-tears-b.mp3",
+      "category": "BGM",
+      "tags": [
+        "bgm",
+        "zig",
+        "psyence-workshop",
+        "freaktion",
+        "happy-tears",
+        "orchestra-riot"
+      ],
+      "duration": 30.93,
+      "format": "mp3",
+      "loop": false,
+      "volume": 0.8,
+      "sampleRate": 44100,
+      "license": "Original (orchestra samples VSCO-2-CE CC0; voices VOICEVOX — credit required)",
+      "source": "PSYENCE WORKSHOP songs/HAPPY-TEARS, rendered with SONOVA",
+      "author": "ZIG / PSYENCE WORKSHOP",
+      "notes": "156 BPM. 歌: VOICEVOX:玄野武宏 / VOICEVOX:白上虎太郎",
+      "collections": [
+        "ZIG HAPPY TEARS"
+      ],
+      "projectIds": [
+        "psyence-workshop"
+      ],
+      "versionOf": "zig_happy_tears",
+      "version": "B",
+      "localFile": "public/audio/happy-tears/B-mix.mp3"
+    },
+    {
+      "id": "zig_happy_tears_c_mp3",
+      "name": "ZIG HAPPY TEARS C BROKEN PARADE (Phase 0)",
+      "file": "sounds/bgm/zig-happy-tears-c.mp3",
+      "category": "BGM",
+      "tags": [
+        "bgm",
+        "zig",
+        "psyence-workshop",
+        "freaktion",
+        "happy-tears",
+        "broken-parade"
+      ],
+      "duration": 30.56,
+      "format": "mp3",
+      "loop": false,
+      "volume": 0.8,
+      "sampleRate": 44100,
+      "license": "Original (orchestra samples VSCO-2-CE CC0; voices VOICEVOX — credit required)",
+      "source": "PSYENCE WORKSHOP songs/HAPPY-TEARS, rendered with SONOVA",
+      "author": "ZIG / PSYENCE WORKSHOP",
+      "notes": "158 BPM. 歌: VOICEVOX:玄野武宏 / VOICEVOX:白上虎太郎",
+      "collections": [
+        "ZIG HAPPY TEARS"
+      ],
+      "projectIds": [
+        "psyence-workshop"
+      ],
+      "versionOf": "zig_happy_tears",
+      "version": "C",
+      "localFile": "public/audio/happy-tears/C-mix.mp3"
+    }
+  ]
+}
