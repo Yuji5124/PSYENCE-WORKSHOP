@@ -24,7 +24,7 @@ ROOT.innerHTML = `
   <div class="shell">
     <header class="topbar">
       <a class="wordmark" href="#top" aria-label="PSYENCE WORKSHOP home"><span class="wordmark-symbol">P</span><span>PSYENCE<br>WORKSHOP</span></a>
-      <div class="top-meta"><span class="live-mark"><i></i> EXPERIMENTAL AUDIO LAB</span><span class="top-index">FIELD NOTE / 001</span></div>
+      <div class="top-meta"><span class="live-mark"><i></i> EXPERIMENTAL AUDIO LAB</span><span class="top-index">FIELD NOTE / 001</span><a class="top-index" href="./happy-tears.html">HAPPY TEARS — 3 DEMOS ↗</a></div>
       <div class="artist-tag"><span class="artist-label">VIRTUAL ARTIST</span><strong>ZIG</strong></div>
     </header>
 

@@ -48,3 +48,7 @@ The `.github/workflows/pages.yml` workflow tests and builds on pushes to `main`,
 - Web Audio must be enabled by a user gesture. For WAV export, use a current desktop browser or iPhone Safari with `OfflineAudioContext` support.
 - The local save uses this browser's storage. Keep the downloaded JSON as a portable backup.
 - SOUNDVAULT is not implemented or changed. Its destination can be added through `ExperimentStore` after its supported format and write flow are reviewed.
+
+## HAPPY TEARS (FREAKTION SONG 002 / Phase 0)
+
+Three 30-second demos of ZIG's HAPPY TEARS — A BRASS RIFF, B ORCHESTRA RIOT, C BROKEN PARADE — with the same VOICEVOX vocal hook and different accompaniments (joy and sorrow sounding at once). Listening page: [happy-tears.html](./happy-tears.html) (switch A/B/C, play/stop, vocal on/off, per-instrument levels, chords, lyrics, listening evaluation). Data, lyrics (original draft kept verbatim), licences and how to regenerate: [songs/HAPPY-TEARS](./songs/HAPPY-TEARS/README.md).
