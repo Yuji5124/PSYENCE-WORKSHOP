@@ -2,6 +2,17 @@
 
 Use this log for audible results, including directions that do not work. A listening note saved in the browser is local to that device; copy useful decisions here.
 
+## 2026-10-24 — Phase 1: Japanese singing vocal (VOICEVOX)
+
+- **Engine:** VOICEVOX Engine 0.26.0 (CPU only) song API. Pitch, timing and phonemes come from the only singing style, 波音リツ (`6000`); the voice is rendered with 波音リツ ノーマル (`3009`) or 玄野武宏 ノーマル (`3011`, one octave down). OpenUtau (no documented CLI) and DiffSinger (CUDA-oriented setup, no Japanese model listed) were researched but not adopted. Details: [vocal/README.md](vocal/README.md).
+- **Score:** `src/psylo-vocal.json` — FULL (48 notes, nearly every word of the new draft) and SHORT (30 notes, room to breathe). The hook is fixed in both: サ D5 bar 7 beat 3 → イ E5 bar 7 beat 4 for 3 beats → ロ F#5 bar 8 beat 3 for 2 beats. Table with phonemes: [vocal/notes.md](vocal/notes.md).
+- **Styles:** A STRAIGHT (engine output), B ROCK (longer, louder consonants; clipped short notes), C WILD (scoops, vibrato on long notes, falling phrase ends, bar-one accents). All edits are to the engine's own query (f0, volume, phoneme length); no effects.
+- **Browser:** `/psylo.html` VOCAL panel — vocal on/off, A/B/C, FULL/SHORT, voice, guide (off / original / sung melody), level sliders, syllable-by-syllable lyric highlight, the サイロー window, WAV export of the exact mix. Notes save the vocal settings.
+- **Mix changes:** vocal chain (HP 110 Hz, light compression, 3 kHz presence, slap); guitar −2 dB from サ and −3 dB under ロー; bass ducks 90 ms on each kick; a fast master limiter (the vocal mix previously peaked at 0.0 dBFS).
+- **Measured:** sung pitches within ±0.3 semitones; every vowel within ±5 ms of its beat; vocal over band in 1–4 kHz +2.7 dB (bars 1–6), +3.9 dB on ロー, −1.3 dB on the long イ; peak −1.4 dBFS.
+- **Not yet judged by ear:** whether the hook makes you want to sing along, FULL vs SHORT, and which style/voice. The agent that built this cannot listen.
+- **Credit required when shared:** VOICEVOX:波音リツ / VOICEVOX:玄野武宏.
+
 ## 2026-10-24 — Direction selected
 
 - **Decision:** the project owner chose Pattern A (160 BPM, 疾走型, sustained final **ロー**) as the direction to develop.

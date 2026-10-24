@@ -1,0 +1,101 @@
+{
+ "generated_by": "tools/psylo-vocal.mjs",
+ "engine": "VOICEVOX Engine 0.26.0 (CPU)",
+ "frame_rate": 93.75,
+ "lead_seconds": 0.8,
+ "bpm": 160,
+ "query_style": {
+  "id": 6000,
+  "name": "波音リツ ノーマル (sing)"
+ },
+ "credits": [
+  "VOICEVOX:波音リツ",
+  "VOICEVOX:玄野武宏"
+ ],
+ "takes": [
+  {
+   "voice": "RITSU",
+   "version": "FULL",
+   "style": "STRAIGHT",
+   "file": "audio/psylo/vocal/RITSU-FULL-STRAIGHT.wav",
+   "bytes": 662572
+  },
+  {
+   "voice": "RITSU",
+   "version": "FULL",
+   "style": "ROCK",
+   "file": "audio/psylo/vocal/RITSU-FULL-ROCK.wav",
+   "bytes": 662572
+  },
+  {
+   "voice": "RITSU",
+   "version": "FULL",
+   "style": "WILD",
+   "file": "audio/psylo/vocal/RITSU-FULL-WILD.wav",
+   "bytes": 662572
+  },
+  {
+   "voice": "RITSU",
+   "version": "SHORT",
+   "style": "STRAIGHT",
+   "file": "audio/psylo/vocal/RITSU-SHORT-STRAIGHT.wav",
+   "bytes": 662572
+  },
+  {
+   "voice": "RITSU",
+   "version": "SHORT",
+   "style": "ROCK",
+   "file": "audio/psylo/vocal/RITSU-SHORT-ROCK.wav",
+   "bytes": 662572
+  },
+  {
+   "voice": "RITSU",
+   "version": "SHORT",
+   "style": "WILD",
+   "file": "audio/psylo/vocal/RITSU-SHORT-WILD.wav",
+   "bytes": 662572
+  },
+  {
+   "voice": "TAKEHIRO",
+   "version": "FULL",
+   "style": "STRAIGHT",
+   "file": "audio/psylo/vocal/TAKEHIRO-FULL-STRAIGHT.wav",
+   "bytes": 662572
+  },
+  {
+   "voice": "TAKEHIRO",
+   "version": "FULL",
+   "style": "ROCK",
+   "file": "audio/psylo/vocal/TAKEHIRO-FULL-ROCK.wav",
+   "bytes": 662572
+  },
+  {
+   "voice": "TAKEHIRO",
+   "version": "FULL",
+   "style": "WILD",
+   "file": "audio/psylo/vocal/TAKEHIRO-FULL-WILD.wav",
+   "bytes": 662572
+  },
+  {
+   "voice": "TAKEHIRO",
+   "version": "SHORT",
+   "style": "STRAIGHT",
+   "file": "audio/psylo/vocal/TAKEHIRO-SHORT-STRAIGHT.wav",
+   "bytes": 662572
+  },
+  {
+   "voice": "TAKEHIRO",
+   "version": "SHORT",
+   "style": "ROCK",
+   "file": "audio/psylo/vocal/TAKEHIRO-SHORT-ROCK.wav",
+   "bytes": 662572
+  },
+  {
+   "voice": "TAKEHIRO",
+   "version": "SHORT",
+   "style": "WILD",
+   "file": "audio/psylo/vocal/TAKEHIRO-SHORT-WILD.wav",
+   "bytes": 662572
+  }
+ ]
+}

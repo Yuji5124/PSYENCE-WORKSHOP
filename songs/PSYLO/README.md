@@ -4,7 +4,7 @@
 **Reading:** サイロ  
 **Working etymology:** PSYche × GLOW  
 **Form under study:** three original eight-bar chorus sketches  
-**Status:** Pattern A selected; six electronic sound colors and an uneven, stretched hook are ready to audition
+**Status:** Pattern A selected; **Phase 1: a Japanese singing vocal (VOICEVOX) sings the eight bars with the band** — see [vocal/README.md](vocal/README.md)
 
 ## Selected direction
 
@@ -18,6 +18,10 @@ Run `npm ci` and `npm run dev`, then open `/psylo.html`. In **VOCAL HOOK**, choo
 
 The listening note is saved to this browser's local storage. It is not uploaded. Record comparisons and decisions in [experiment-log.md](experiment-log.md) as well, so they travel with the project.
 
+## Phase 1 — vocal
+
+In `/psylo.html`, the **VOCAL** panel plays Pattern A with a pre-rendered Japanese singing voice (VOICEVOX Engine song API): vocal on/off, styles A STRAIGHT / B ROCK / C WILD, lyric versions FULL / SHORT, voices 波音リツ / 玄野武宏, the original or sung melody guide, part levels, and the live lyric and **サイロー** window. Regenerate with `npm run vocal:render` while a VOICEVOX Engine runs locally. Credit when shared: **VOICEVOX:波音リツ / VOICEVOX:玄野武宏**.
+
 ## Study files
 
 - [Story premise](story.md)
@@ -26,5 +30,6 @@ The listening note is saved to this browser's local storage. It is not uploaded.
 - [Arrangement and sound design](sound-design.md)
 - [Hide research and listening worksheet](research-notes.md)
 - [Experiment log](experiment-log.md)
+- [Phase 1 vocal implementation](vocal/README.md) and [lyric ↔ note table](vocal/notes.md)
 
 All words, melodies, riffs, and arrangements in these drafts are original. Hide's work is a study reference for broad creative questions, never source material to trace or reproduce. Factual biographical claims are kept out until they can be checked against primary sources; interpretation and listening hypotheses are labeled as such.
