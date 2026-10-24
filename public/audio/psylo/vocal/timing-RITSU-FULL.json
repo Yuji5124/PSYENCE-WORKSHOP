@@ -1,0 +1,342 @@
+{
+ "voice": "RITSU",
+ "version": "FULL",
+ "timing": [
+  {
+   "i": 0,
+   "lyric": "ポ",
+   "phonemes": "p o",
+   "vowelOnsetSec": 0,
+   "gridSec": 0
+  },
+  {
+   "i": 1,
+   "lyric": "ケ",
+   "phonemes": "k e",
+   "vowelOnsetSec": 0.192,
+   "gridSec": 0.1875
+  },
+  {
+   "i": 2,
+   "lyric": "ト",
+   "phonemes": "t o",
+   "vowelOnsetSec": 0.3733,
+   "gridSec": 0.375
+  },
+  {
+   "i": 3,
+   "lyric": "ノ",
+   "phonemes": "n o",
+   "vowelOnsetSec": 0.5653,
+   "gridSec": 0.5625
+  },
+  {
+   "i": 4,
+   "lyric": "ウ",
+   "phonemes": "u",
+   "vowelOnsetSec": 0.7467,
+   "gridSec": 0.75
+  },
+  {
+   "i": 5,
+   "lyric": "チュ",
+   "phonemes": "ch u",
+   "vowelOnsetSec": 0.9387,
+   "gridSec": 0.9375
+  },
+  {
+   "i": 6,
+   "lyric": "ウ",
+   "phonemes": "u",
+   "vowelOnsetSec": 1.12,
+   "gridSec": 1.125
+  },
+  {
+   "i": 7,
+   "lyric": "ヒ",
+   "phonemes": "h i",
+   "vowelOnsetSec": 1.504,
+   "gridSec": 1.5
+  },
+  {
+   "i": 8,
+   "lyric": "ク",
+   "phonemes": "k u",
+   "vowelOnsetSec": 1.6853,
+   "gridSec": 1.6875
+  },
+  {
+   "i": 9,
+   "lyric": "リ",
+   "phonemes": "r i",
+   "vowelOnsetSec": 1.8773,
+   "gridSec": 1.875
+  },
+  {
+   "i": 10,
+   "lyric": "カ",
+   "phonemes": "k a",
+   "vowelOnsetSec": 2.0587,
+   "gridSec": 2.0625
+  },
+  {
+   "i": 11,
+   "lyric": "エ",
+   "phonemes": "e",
+   "vowelOnsetSec": 2.2507,
+   "gridSec": 2.25
+  },
+  {
+   "i": 12,
+   "lyric": "シ",
+   "phonemes": "sh i",
+   "vowelOnsetSec": 2.4427,
+   "gridSec": 2.4375
+  },
+  {
+   "i": 13,
+   "lyric": "テ",
+   "phonemes": "t e",
+   "vowelOnsetSec": 2.624,
+   "gridSec": 2.625
+  },
+  {
+   "i": 14,
+   "lyric": "マ",
+   "phonemes": "m a",
+   "vowelOnsetSec": 2.9973,
+   "gridSec": 3
+  },
+  {
+   "i": 15,
+   "lyric": "ダ",
+   "phonemes": "d a",
+   "vowelOnsetSec": 3.1893,
+   "gridSec": 3.1875
+  },
+  {
+   "i": 16,
+   "lyric": "シ",
+   "phonemes": "sh i",
+   "vowelOnsetSec": 3.3707,
+   "gridSec": 3.375
+  },
+  {
+   "i": 17,
+   "lyric": "ラ",
+   "phonemes": "r a",
+   "vowelOnsetSec": 3.5627,
+   "gridSec": 3.5625
+  },
+  {
+   "i": 18,
+   "lyric": "ナ",
+   "phonemes": "n a",
+   "vowelOnsetSec": 3.7547,
+   "gridSec": 3.75
+  },
+  {
+   "i": 19,
+   "lyric": "イ",
+   "phonemes": "i",
+   "vowelOnsetSec": 3.936,
+   "gridSec": 3.9375
+  },
+  {
+   "i": 20,
+   "lyric": "イ",
+   "phonemes": "i",
+   "vowelOnsetSec": 4.128,
+   "gridSec": 4.125
+  },
+  {
+   "i": 21,
+   "lyric": "ロ",
+   "phonemes": "r o",
+   "vowelOnsetSec": 4.3093,
+   "gridSec": 4.3125
+  },
+  {
+   "i": 22,
+   "lyric": "ク",
+   "phonemes": "k u",
+   "vowelOnsetSec": 4.5013,
+   "gridSec": 4.5
+  },
+  {
+   "i": 23,
+   "lyric": "ツ",
+   "phonemes": "ts u",
+   "vowelOnsetSec": 4.6827,
+   "gridSec": 4.6875
+  },
+  {
+   "i": 24,
+   "lyric": "オ",
+   "phonemes": "o",
+   "vowelOnsetSec": 4.8747,
+   "gridSec": 4.875
+  },
+  {
+   "i": 25,
+   "lyric": "ト",
+   "phonemes": "t o",
+   "vowelOnsetSec": 5.0667,
+   "gridSec": 5.0625
+  },
+  {
+   "i": 26,
+   "lyric": "ニ",
+   "phonemes": "n i",
+   "vowelOnsetSec": 5.248,
+   "gridSec": 5.25
+  },
+  {
+   "i": 27,
+   "lyric": "マ",
+   "phonemes": "m a",
+   "vowelOnsetSec": 5.44,
+   "gridSec": 5.4375
+  },
+  {
+   "i": 28,
+   "lyric": "ゼ",
+   "phonemes": "z e",
+   "vowelOnsetSec": 5.6213,
+   "gridSec": 5.625
+  },
+  {
+   "i": 29,
+   "lyric": "ル",
+   "phonemes": "r u",
+   "vowelOnsetSec": 5.8133,
+   "gridSec": 5.8125
+  },
+  {
+   "i": 30,
+   "lyric": "ム",
+   "phonemes": "m u",
+   "vowelOnsetSec": 6.0053,
+   "gridSec": 6
+  },
+  {
+   "i": 31,
+   "lyric": "ネ",
+   "phonemes": "n e",
+   "vowelOnsetSec": 6.1867,
+   "gridSec": 6.1875
+  },
+  {
+   "i": 32,
+   "lyric": "ノ",
+   "phonemes": "n o",
+   "vowelOnsetSec": 6.3787,
+   "gridSec": 6.375
+  },
+  {
+   "i": 33,
+   "lyric": "オ",
+   "phonemes": "o",
+   "vowelOnsetSec": 6.56,
+   "gridSec": 6.5625
+  },
+  {
+   "i": 34,
+   "lyric": "ク",
+   "phonemes": "k u",
+   "vowelOnsetSec": 6.752,
+   "gridSec": 6.75
+  },
+  {
+   "i": 35,
+   "lyric": "デ",
+   "phonemes": "d e",
+   "vowelOnsetSec": 6.9333,
+   "gridSec": 6.9375
+  },
+  {
+   "i": 36,
+   "lyric": "ショ",
+   "phonemes": "sh o",
+   "vowelOnsetSec": 7.4987,
+   "gridSec": 7.5
+  },
+  {
+   "i": 37,
+   "lyric": "ガ",
+   "phonemes": "g a",
+   "vowelOnsetSec": 7.872,
+   "gridSec": 7.875
+  },
+  {
+   "i": 38,
+   "lyric": "ハ",
+   "phonemes": "h a",
+   "vowelOnsetSec": 8.064,
+   "gridSec": 8.0625
+  },
+  {
+   "i": 39,
+   "lyric": "ジ",
+   "phonemes": "j i",
+   "vowelOnsetSec": 8.2453,
+   "gridSec": 8.25
+  },
+  {
+   "i": 40,
+   "lyric": "マ",
+   "phonemes": "m a",
+   "vowelOnsetSec": 8.4373,
+   "gridSec": 8.4375
+  },
+  {
+   "i": 41,
+   "lyric": "ル",
+   "phonemes": "r u",
+   "vowelOnsetSec": 8.6293,
+   "gridSec": 8.625
+  },
+  {
+   "i": 42,
+   "lyric": "ヒ",
+   "phonemes": "h i",
+   "vowelOnsetSec": 9.0027,
+   "gridSec": 9
+  },
+  {
+   "i": 43,
+   "lyric": "カ",
+   "phonemes": "k a",
+   "vowelOnsetSec": 9.184,
+   "gridSec": 9.1875
+  },
+  {
+   "i": 44,
+   "lyric": "レ",
+   "phonemes": "r e",
+   "vowelOnsetSec": 9.376,
+   "gridSec": 9.375
+  },
+  {
+   "i": 45,
+   "lyric": "サ",
+   "phonemes": "s a",
+   "vowelOnsetSec": 9.7493,
+   "gridSec": 9.75
+  },
+  {
+   "i": 46,
+   "lyric": "イ",
+   "phonemes": "i",
+   "vowelOnsetSec": 10.1227,
+   "gridSec": 10.125
+  },
+  {
+   "i": 47,
+   "lyric": "ロ",
+   "phonemes": "r o",
+   "vowelOnsetSec": 11.2533,
+   "gridSec": 11.25
+  }
+ ]
+}
