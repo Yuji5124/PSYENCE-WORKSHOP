@@ -10,10 +10,10 @@ All lyrics here are original and provisional. Each chorus uses four two-bar line
 > 靴音に着て<br>
 > 胸の奥で<br>
 > ショーが目覚める<br>
-> さあ **サイ**<br>
+> さあ **サイーー**<br>
 > **ロー——！**
 
-This is a compact lyric-fit draft for 160 BPM, one short phrase per bar. In bar 7, the guide places **サ** on beat 3 and **イ** on beat 4; in bar 8, **ロー** starts on the highest note (F#5) and holds for about two beats. The wording is provisional and should be sung aloud before it is treated as final.
+This is a lyric-fit draft for 160 BPM, one short phrase per bar. In bar 7, **サ** lands on beat 3 and **イ** begins on beat 4, then crosses the bar line for roughly three beats. **ロー** answers on bar 8 beat 3 at the high F#5 and holds to the end. The long middle vowel makes the title call intentionally lopsided. The wording is provisional and should be sung aloud before it is treated as final.
 
 ## B — ポップ型 / DOUBLE HOOK
 

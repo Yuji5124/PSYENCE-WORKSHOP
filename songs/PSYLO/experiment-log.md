@@ -9,14 +9,17 @@ Use this log for audible results, including directions that do not work. A liste
 - **Still open:** exact lyric-to-note alignment, melody contour, guitar articulation, and whether the final held note lasts as long as the current preview. This is a direction selection, not approval of a finished chorus or mix.
 - **Outcome:** made a lyric-aware A variation with a clearer syllable rhythm for **サイロー！**; the comparison is recorded below.
 
-## 2026-10-24 — Vocal hook fit / A1 vs A2
+## 2026-10-24 — Irregular A hook and six electronic colors
 
-- **Setup:** kept the selected eight-bar A chorus at 160 BPM. Bars 1–6 use one short lyric phrase per bar; bar 7 rises into **サ** (beat 3) and **イ** (beat 4); bar 8 begins **ロー** on F#5 and holds it for about two beats.
-- **A1 RUN:** the guitar figure continues during the held vowel.
-- **A2 DROP:** guitar leaves the first two beats of bar 8 clear, then returns.
-- **Controlled variables:** tempo, melody, vocal guide, drum pattern, guitar preset, and mix level.
-- **Question for listening:** does the guitar motion energize the long vowel, or does the gap make the title call land harder?
-- **Limit:** this is a synthetic pitch guide, not a sung performance. The vowel fit and F#5 comfort remain unverified with a singer.
+- **Hook:** A remains eight bars at 160 BPM. The **イ** begins on bar 7 beat 4 and sustains for about three beats across the bar line; **ロー** begins on bar 8 beat 3 at F#5 and sustains about two beats.
+- **RUN:** the syncopated guitar continues through the held **イ** and **ロー**.
+- **DROP:** guitar leaves space from the onset of **イ** to the entrance of **ロー**.
+- **Rhythm:** guitar and drum accents now use displaced/offbeat hits and asymmetric gaps in both versions.
+- **Electronic palette:** six seeded Bfxr2 sources are available in the browser: Signlr / alien_handshake, Glitchr / buffer_skip, Zappr / power_short, Riftr / reality_glitch, Choirr / robot_choir, and Crittr / alien_purr. Each has a distinct offbeat event map.
+- **Source/license:** `increpare/bfxr2`, revision `43c6c3b15e76407e9863b999741340999225e21f`; MIT project license, Apache-2.0 Sfxr-derived DSP, CC0 waveform data. No prerecorded SFX were copied. Upstream does not separately state a license for rendered audio; these generated effects remain inside the original music study.
+- **Question for listening:** which of the six colors makes the chorus stranger without burying **サイーー、ロー**? Does guitar-through or DROP create the better lopsided lift?
+- **Limit:** this is still a synthetic pitch guide, not a sung performance. The long vowel fit and F#5 comfort remain unverified with a singer.
+- **Smoke check:** Chromium generated and started all six seeded effects in the A arrangement, switched to DROP, and saved the selected effect and seed in its local listening note. No page runtime or network errors occurred. `npm run build` succeeded; `npm test` passed (5 tests).
 
 ## 2026-10-23 — First chorus comparison
 

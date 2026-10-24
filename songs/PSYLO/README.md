@@ -4,7 +4,7 @@
 **Reading:** サイロ  
 **Working etymology:** PSYche × GLOW  
 **Form under study:** three original eight-bar chorus sketches  
-**Status:** Pattern A selected; testing the title hook's vocal phrasing and guitar space
+**Status:** Pattern A selected; six electronic sound colors and an uneven, stretched hook are ready to audition
 
 ## Selected direction
 
@@ -14,7 +14,7 @@ PSYLO begins with an inner show that escapes through music. The protagonist stay
 
 ## Listen in the browser
 
-Run `npm ci` and `npm run dev`, then open `/psylo.html`. In **VOCAL HOOK TEST**, choose RUN or DROP, then press **LISTEN** on A. Both keep A at 160 BPM with the same pitches and levels; RUN keeps guitar moving under the held **ロー**, while DROP leaves its first two beats clear. Choose B or C to hear the retained alternatives. The tempo slider changes the selected chorus tempo. Guitar notes use the existing CC0 FreePats sample engine; drums, bass, and the melody guide are synthesized locally with Web Audio. The guide is an instrument playing original pitches, not a sung or voice-cloned performance. The first listen loads only the selected pattern's guitar samples.
+Run `npm ci` and `npm run dev`, then open `/psylo.html`. In **VOCAL HOOK**, choose RUN or DROP, then select one of six **STRANGE CIRCUITS** and press **LISTEN** on A. The middle **イ** holds for about three beats across the bar line; **ロー** enters on beat 3 of bar 8. RUN keeps the syncopated guitar moving, while DROP leaves space from the start of the long **イ** until **ロー**. The six electronic sounds are generated in-browser from fixed seeds with Bfxr2; they are not voice performances or bundled recordings. Choose B or C to hear the retained alternatives. The guide is a synthetic pitch cue, not singing or voice cloning.
 
 The listening note is saved to this browser's local storage. It is not uploaded. Record comparisons and decisions in [experiment-log.md](experiment-log.md) as well, so they travel with the project.
 
