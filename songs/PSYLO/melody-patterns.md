@@ -4,7 +4,7 @@ The browser preview's triangular tone is a pitch guide, not a vocal performance.
 
 | Pattern | Tempo | Phrase behavior | PSYLO pronunciation | First decision to test |
 |---|---:|---|---|---|
-| A — LONG O | 160 BPM (150–165) | Continuous eighth-note guitar motion; melody climbs into the last two bars | **サイ** rises, **ロー** sustains about two beats | Does the held O feel exciting or over-explained? |
+| A — LONG O · selected direction | 160 BPM (150–165) | Continuous eighth-note guitar motion; melody climbs into the last two bars | **サイ** rises, **ロー** sustains about two beats | Refine the lyric syllables against the rising phrase and test the length of the held O |
 | B — DOUBLE HOOK | 136 BPM (125–145) | Backbeat and offbeat hats make a gently bouncing repeated hook | Two short **サイロ** calls, then two **PSYLO!** calls | Does repeating the word make it instantly memorable? |
 | C — SWITCH & SHOUT | 148 BPM (135–155) | Electronic guide leads the first bars; sampled guitar enters at bar 3 | **PSY** stretches, **LO!** snaps high and short | Does the texture change make the last shout feel earned? |
 

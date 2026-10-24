@@ -4,7 +4,11 @@
 **Reading:** サイロ  
 **Working etymology:** PSYche × GLOW  
 **Form under study:** three original eight-bar chorus sketches  
-**Status:** melody and chorus comparison, not a finished song
+**Status:** Pattern A selected as the working chorus direction; melody and lyric refinement next
+
+## Selected direction
+
+Pattern A — **疾走型 / LONG O** is the current working direction, selected by the project owner on 2026-10-24. Keep the 160 BPM drive, rising hook, and sustained final **ロー** as the testable core. This is a direction choice, not a lock on the final melody or words. Patterns B and C remain archived alternatives in the browser and study notes.
 
 PSYLO begins with an inner show that escapes through music. The protagonist stays complicated: fear, anger, delight, and sadness remain in the room and become part of the performance. The next show has already started before this one ends.
 
