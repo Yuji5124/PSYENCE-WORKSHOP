@@ -10,10 +10,10 @@ type Sketch = {
 const sketches: Sketch[] = [
   {
     id: 'A', title: '疾走型 / LONG O', bpm: 160,
-    lyric: 'ポケットの宇宙　ひっくり返して\nまだ知らない色　靴音にまぜる\n胸の奥で　ショーが始まる\nPSY-LO——！　光れ、変なままで',
-    note: '「サイ」を上げ、「ロー」を2拍伸ばす。直進する8ビートに、最後だけ長い母音を置く。',
+    lyric: 'ポケットで\n宇宙がはねる\n知らない色を\n靴音に着て\n胸の奥で\nショーが目覚める\nさあ サイ\nロー——！',
+    note: '仮歌割り：7小節目の3・4拍に「サ・イ」、8小節目1拍目から最高音F#5で「ロー」を約2拍伸ばす。',
     riff: [[50, null, 50, 57, 55, null, 57, 59], [47, null, 47, 54, 52, null, 54, 55], [43, null, 43, 50, 48, 50, 52, 50], [45, null, 45, 52, 50, null, 52, 54], [50, null, 50, 57, 55, null, 57, 59], [47, null, 47, 54, 52, 54, 55, 54], [43, null, 43, 50, 48, null, 50, 52], [45, 45, 52, 54, 57, 59, 62, 62]],
-    melody: [[62, 66, 69, 66], [64, 66, 69], [67, 69, 71], [69, 71, 74], [62, 66, 69], [64, 66, 69], [67, 69, 71], [69, 74, 76]],
+    melody: [[62, 62, 66, 66], [66, 69, 69, 66], [64, 66, 69, 69], [66, 69, 71, 69], [67, 67, 69, 71], [69, 71, 74, 71], [69, 71, 74, 76], [78]],
     roots: [38, 35, 31, 33, 38, 35, 31, 33], style: 'drive',
   },
   {
@@ -41,6 +41,7 @@ root.innerHTML = `
     <header><a href="./" class="back">← WORKSHOP</a><div class="brand">PSYENCE<br>WORKSHOP</div><span class="artist">ZIG / SONG 001</span></header>
     <section class="hero"><div><span class="kicker">PHASE 0 — CHORUS STUDY</span><h1>PSY<span>LO</span></h1><p class="reading">サイロ　/　PSYche × GLOW</p><p class="lead">心の中で勝手に続いていたショーが、音楽になって外へ飛び出す。</p></div><div class="signal"><span>INNER SHOW // OUTSIDE</span><div class="signal-bars">▂ ▅ ▃ ▇ ▄ ▆ ▂ ▇ ▃ ▅ ▂ ▆</div><span>8 BARS / ORIGINAL SKETCH</span></div></section>
     <section class="controls"><div class="play-controls"><button id="play" class="play">▶　PLAY CHORUS</button><label>TEMPO <input id="tempo" type="range" min="125" max="165" value="160"><output id="tempo-value">160 BPM</output></label></div><p id="status" aria-live="polite">Aを選んでサビの仮メロディを試聴</p></section>
+    <section class="hook-lab"><div><span class="kicker">PHASE 1 / VOCAL HOOK TEST</span><h2>最後の「ロー」を、ギターはどう支える？</h2><p>同じ160 BPM・同じ歌割り・同じ音量で比較します。7小節目の3拍目「サ」、4拍目「イ」、8小節目の最高音F#5「ロー」（約2拍）。</p></div><div class="hook-options"><button class="hook-option active" data-hook="run" aria-pressed="true"><b>01 / RUN</b><span>伸ばしている間もギターが動く</span></button><button class="hook-option" data-hook="drop" aria-pressed="false"><b>02 / DROP</b><span>「ロー」の最初の2拍でギターが止まる</span></button></div></section>
     <section class="patterns" id="patterns"></section>
     <section class="guide"><div><span class="kicker">VOCAL GUIDE</span><h2>歌声ではなく、歌える音域の仮メロディ</h2><p>明るい電子音が音程を示します。歌唱合成はまだ使っていません。ここでは言葉の乗り方、母音の伸び、サビの記憶しやすさを比較します。</p></div><div class="mini-legend"><b>GUITAR</b> CC0 FreePats sample<br><b>BEAT / BASS</b> Web Audio synthesis<br><b>VOICE</b> original note guide only</div></section>
     <section class="log"><label for="decision">試聴メモ / どこをもう一度聴きたい？</label><textarea id="decision" rows="3" placeholder="例：Bのサイロ反復が残る。最後の母音は短く切る案も聴きたい。"></textarea><button id="save-note">SAVE LISTENING NOTE</button><span id="saved-note"></span></section>
@@ -50,6 +51,7 @@ root.innerHTML = `
 const $ = <T extends HTMLElement>(id: string) => document.getElementById(id) as T;
 const patterns = $('patterns');
 let selected = 0;
+let hookBacking: 'run' | 'drop' = 'run';
 let context: AudioContext | null = null;
 let active = false;
 let activeGain: GainNode | null = null;
@@ -61,6 +63,15 @@ function renderCards() {
   patterns.innerHTML = sketches.map((s, i) => `<article class="pattern-card ${i === selected ? 'selected' : ''}" data-card="${i}"><div class="card-head"><span>OPTION ${s.id}</span><b>${s.bpm} BPM</b></div><h2>${s.title}</h2><pre>${s.lyric}</pre><p>${s.note}</p><div class="card-meta"><span>${s.style === 'drive' ? 'CRUNCH ROCK / LONG VOWEL' : s.style === 'bounce' ? 'CLEAN POP / REPEAT' : 'FUZZ CHAOS / SWITCH'}</span><button data-listen="${i}">▶ LISTEN</button></div></article>`).join('');
 }
 renderCards();
+document.querySelectorAll<HTMLButtonElement>('[data-hook]').forEach((button) => button.addEventListener('click', () => {
+  hookBacking = button.dataset.hook === 'drop' ? 'drop' : 'run';
+  document.querySelectorAll<HTMLButtonElement>('[data-hook]').forEach((option) => {
+    const isSelected = option === button;
+    option.classList.toggle('active', isSelected);
+    option.setAttribute('aria-pressed', String(isSelected));
+  });
+  $('status').textContent = `A案 / ${hookBacking === 'run' ? '「ロー」の間もギターが動く' : '「ロー」の最初の2拍でギターが休む'}`;
+}));
 patterns.addEventListener('click', (event) => {
   const target = event.target;
   if (!(target instanceof HTMLElement)) return;
@@ -108,7 +119,8 @@ async function start() {
       if(pos%2===0) {
         const eighthIndex=pos/2; const pitch=sketch.riff[bar][eighthIndex];
         const riffAt=at+(sketch.style==='bounce'&&eighthIndex%2===1?beat*.055:0);
-        if(pitch!==null && !(sketch.style==='change'&&bar<2)) void guitars.play(ctx,mix,pitch,eighthIndex===0||eighthIndex===4,eighth*.84,`PSYLO-${sketch.id}`,bar*8+eighthIndex,sketch.id==='A'?39:sketch.id==='B'?17:72,sketch.id==='A'?.64:sketch.id==='B'?.82:.9,sketch.id==='B'?.19:.07,riffAt,false);
+        const underLongO = sketch.id === 'A' && hookBacking === 'drop' && bar === 7 && eighthIndex < 4;
+        if(pitch!==null && !underLongO && !(sketch.style==='change'&&bar<2)) void guitars.play(ctx,mix,pitch,eighthIndex===0||eighthIndex===4,eighth*.84,`PSYLO-${sketch.id}`,bar*8+eighthIndex,sketch.id==='A'?39:sketch.id==='B'?17:72,sketch.id==='A'?.64:sketch.id==='B'?.82:.9,sketch.id==='B'?.19:.07,riffAt,false);
         if(eighthIndex===0||eighthIndex===4) synthNote(ctx,mix,sketch.roots[bar],at,beat*.4,'triangle',.19,280);
       }
     }

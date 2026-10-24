@@ -4,12 +4,16 @@ All lyrics here are original and provisional. Each chorus uses four two-bar line
 
 ## A — 疾走型 / LONG O
 
-> ポケットの宇宙　ひっくり返して  
-> まだ知らない色　靴音にまぜる  
-> 胸の奥で　ショーが始まる  
-> **PSY-LO——！　光れ、変なままで**
+> ポケットで<br>
+> 宇宙がはねる<br>
+> 知らない色を<br>
+> 靴音に着て<br>
+> 胸の奥で<br>
+> ショーが目覚める<br>
+> さあ **サイ**<br>
+> **ロー——！**
 
-The hook rises through **サイ** and holds **ロー**. The last line should feel like one breath that gets larger, while the lyric stays playful rather than triumphant.
+This is a compact lyric-fit draft for 160 BPM, one short phrase per bar. In bar 7, the guide places **サ** on beat 3 and **イ** on beat 4; in bar 8, **ロー** starts on the highest note (F#5) and holds for about two beats. The wording is provisional and should be sung aloud before it is treated as final.
 
 ## B — ポップ型 / DOUBLE HOOK
 

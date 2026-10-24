@@ -7,7 +7,16 @@ Use this log for audible results, including directions that do not work. A liste
 - **Decision:** the project owner chose Pattern A (160 BPM, 疾走型, sustained final **ロー**) as the direction to develop.
 - **Carry forward:** the rising hook, full-band momentum, and open final vowel. Keep the CRUNCH ROCK starting point while refining the vocal phrasing.
 - **Still open:** exact lyric-to-note alignment, melody contour, guitar articulation, and whether the final held note lasts as long as the current preview. This is a direction selection, not approval of a finished chorus or mix.
-- **Next experiment:** make a lyric-aware A variation with a clearer syllable rhythm for **PSY-LO——！**, then compare it against the current instrumental guide.
+- **Outcome:** made a lyric-aware A variation with a clearer syllable rhythm for **サイロー！**; the comparison is recorded below.
+
+## 2026-10-24 — Vocal hook fit / A1 vs A2
+
+- **Setup:** kept the selected eight-bar A chorus at 160 BPM. Bars 1–6 use one short lyric phrase per bar; bar 7 rises into **サ** (beat 3) and **イ** (beat 4); bar 8 begins **ロー** on F#5 and holds it for about two beats.
+- **A1 RUN:** the guitar figure continues during the held vowel.
+- **A2 DROP:** guitar leaves the first two beats of bar 8 clear, then returns.
+- **Controlled variables:** tempo, melody, vocal guide, drum pattern, guitar preset, and mix level.
+- **Question for listening:** does the guitar motion energize the long vowel, or does the gap make the title call land harder?
+- **Limit:** this is a synthetic pitch guide, not a sung performance. The vowel fit and F#5 comfort remain unverified with a singer.
 
 ## 2026-10-23 — First chorus comparison
 
@@ -17,6 +26,6 @@ Use this log for audible results, including directions that do not work. A liste
 - **Initial design rationale:** A tests a long final O, B tests two short repeated calls, C tests a texture switch and clipped shout.
 - **Automated browser smoke:** Chromium loaded the PSYLO page, decoded the needed guitar samples, and entered PLAYING for B and C; A played through all eight bars to completion. No browser runtime exceptions were reported. This confirms the preview path, not a human musical judgment.
 - **Implementation catch:** sharp-note sample filenames contained `#`, which a URL treated as a fragment. Renaming those bundled assets to URL-safe `sharp` names fixed browser retrieval. Sample decoding is queued to reduce concurrent decoder pressure on mobile browsers.
-- **Not yet recorded:** a detailed listening judgment on the final melody, actual lyric-to-note alignment, and mix/arrangement revisions. The owner selected A's direction; this does not yet settle those details.
+- **Not yet recorded:** a listening judgment on A1 versus A2, the final lyric, human vocal fit, and mix revisions. The owner selected A's direction; this does not yet settle those details.
 - **Accidental discoveries:** none logged yet.
 - **Rejected ideas:** none logged yet.
